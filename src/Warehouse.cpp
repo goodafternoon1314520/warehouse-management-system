@@ -1,4 +1,5 @@
 #include "../include/Warehouse.h"
+#include "../include/Logger.h"
 
 #include <iostream>
 #include <fstream>
@@ -106,6 +107,9 @@ bool Warehouse::stockIn(int id, int amount) {
 
     product -> increaseQuantity(amount);
 
+    std::string logMessage = "Stock In\nProduct ID: " + std::to_string(id) + "\nAmount: +" + std::to_string(amount);
+    Logger::log(logMessage);
+
     return true;
 }
 
@@ -115,5 +119,11 @@ bool Warehouse::stockOut(int id, int amount) {
     if (product == nullptr)
         return false;
 
-    return product -> decreaseQuantity(amount);
+    bool success =  product -> decreaseQuantity(amount);
+
+    if (success) {
+        std::string logMessage = "Stock Out\nProduct ID: " + std::to_string(id) + "\nAmount: -" + std::to_string(amount);
+        Logger::log(logMessage);
+    }
+    return success;
 }
