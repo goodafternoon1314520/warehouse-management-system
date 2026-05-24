@@ -1,0 +1,14 @@
+# executable
+warehouse
+
+# build directory
+build/
+
+# object files
+*.o
+
+# vscode
+.vscode/
+
+# temp
+*.tmp
