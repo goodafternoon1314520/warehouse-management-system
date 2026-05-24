@@ -17,7 +17,10 @@ int main() {
         std::cout << "\n===== Warehouse System =====\n";
         std::cout << "1. Add Product\n";
         std::cout << "2. Show Products\n";
-        std::cout << "3. Save Data\n";
+        std::cout << "3. Find Product\n";
+        std::cout << "4. Delete Product\n";
+        std::cout << "5. Update Product\n";
+        std::cout << "6. Save Data\n";
         std::cout << "0. Exit\n";
 
         std::cout << "Choose: ";
@@ -62,7 +65,58 @@ int main() {
             warehouse.showProducts();
         }
 
-        else if (choice == 3)
+        else if (choice == 3) {
+            // warehouse.saveToFile("../data/products.txt");
+            int id;
+
+            std::cout << "Input Product ID: ";
+            std::cin >> id;
+
+            Product* product = warehouse.findProduct(id);
+
+            if (product == nullptr)
+                std::cout << "Product not found!\n";
+            else
+                product -> display();
+        }
+
+        else if (choice == 4) {
+            int id;
+
+            std::cout << "Input Product ID: ";
+            std::cin >> id;
+
+            if (warehouse.deleteProduct(id))
+                std::cout << "Product deleted!\n";
+            else
+                std::cout << "Product not found!\n";
+        }
+
+        else if (choice == 5) {
+            int id;
+            std::string name;
+            int quantity;
+            double price;
+
+            std::cout << "Input Product ID: ";
+            std::cin >> id;
+
+            std::cout << "Input Name: ";
+            std::cin >> name;
+
+            std::cout << "Input Quantity: ";
+            std::cin >> quantity;
+
+            std::cout << "Input Price: ";
+            std::cin >> price;
+
+            if (warehouse.updateProduct(id, name, quantity, price))
+                std::cout << "Product Updated!\n";
+            else
+                std::cout << "Product not found!\n";
+        }
+
+        else if (choice == 6)
             warehouse.saveToFile("../data/products.txt");
 
         else if (choice == 0) {

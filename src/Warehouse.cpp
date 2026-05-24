@@ -3,8 +3,17 @@
 #include <iostream>
 #include <fstream>
 
-void Warehouse::addProduct(const Product& product) {
+bool Warehouse::addProduct(const Product& product) {
+    for (const auto& p : products) {
+        if (p.getId() == product.getId()) {
+            std::cout << "Product ID already exists!\n";
+            return false;
+        }
+    }
+
     products.push_back(product);
+
+    return true;
 }
 
 void Warehouse::showProducts() const {
@@ -59,3 +68,33 @@ void Warehouse::loadFromFile(const std::string& filename) {
 
     std::cout << "Data loaded successfully!\n";
 }
+
+Product* Warehouse::findProduct(int id) {
+    for (auto& product : products) {
+        if (product.getId() == id)
+            return &product;
+    }
+    return nullptr;
+}
+
+bool Warehouse::deleteProduct(int id) {
+    for (auto it = products.begin(); it != products.end(); ++it) {
+        if (it -> getId() == id) {
+            products.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Warehouse::updateProduct(int id, std::string name, int quantity, double price) {
+    Product* product = findProduct(id);
+
+    if (product == nullptr)
+        return false;
+
+    product -> setProduct(id, name, quantity, price);
+
+    return true;
+}
+
