@@ -31,6 +31,12 @@ public:
 
     // 修改商品
     bool updateProduct(int id, std::string name, int quantity, double price);
+
+    // 商品入库
+    bool stockIn(int id, int amount);
+
+    // 商品出库
+    bool stockOut(int id, int amount);
 };
 
 #endif

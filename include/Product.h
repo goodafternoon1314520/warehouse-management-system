@@ -29,6 +29,11 @@ public:
     int getQuantity() const;
     double getPrice() const;
 
+    // 增加库存
+    void increaseQuantity(int amount);
+
+    // 减少库存
+    bool decreaseQuantity(int amount);
 };
 
 #endif

@@ -98,3 +98,22 @@ bool Warehouse::updateProduct(int id, std::string name, int quantity, double pri
     return true;
 }
 
+bool Warehouse::stockIn(int id, int amount) {
+    Product* product = findProduct(id);
+
+    if (product == nullptr)
+        return false;
+
+    product -> increaseQuantity(amount);
+
+    return true;
+}
+
+bool Warehouse::stockOut(int id, int amount) {
+    Product* product = findProduct(id);
+
+    if (product == nullptr)
+        return false;
+
+    return product -> decreaseQuantity(amount);
+}

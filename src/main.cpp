@@ -20,7 +20,9 @@ int main() {
         std::cout << "3. Find Product\n";
         std::cout << "4. Delete Product\n";
         std::cout << "5. Update Product\n";
-        std::cout << "6. Save Data\n";
+        std::cout << "6. Stock In\n";
+        std::cout << "7. Stock Out\n";
+        std::cout << "8. Save Data\n";
         std::cout << "0. Exit\n";
 
         std::cout << "Choose: ";
@@ -116,7 +118,39 @@ int main() {
                 std::cout << "Product not found!\n";
         }
 
-        else if (choice == 6)
+        else if (choice == 6) {
+            int id;
+            int amount;
+
+            std::cout << "Input Product ID: ";
+            std::cin >> id;
+
+            std::cout << "Input Amount: ";
+            std::cin >> amount;
+
+            if (warehouse.stockIn(id, amount))
+                std::cout << "Stock in success!\n";
+            else
+                std::cout << "Product not found!\n";
+        }
+
+        else if (choice == 7) {
+            int id;
+            int amount;
+
+            std::cout << "Input Product ID: ";
+            std::cin >> id;
+
+            std::cout << "Input Amount: ";
+            std::cin >> amount;
+
+            if (warehouse.stockOut(id, amount))
+                std::cout << "Stock out success!\n";
+            else
+                std::cout << "Product not failed!\n";
+        }
+
+        else if (choice == 8)
             warehouse.saveToFile("../data/products.txt");
 
         else if (choice == 0) {

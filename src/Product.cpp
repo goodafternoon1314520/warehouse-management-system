@@ -44,3 +44,16 @@ int Product::getQuantity() const {
 double Product::getPrice() const {
     return price;
 }
+
+void Product::increaseQuantity(int amount) {
+    quantity += amount;
+}
+
+bool Product::decreaseQuantity(int amount) {
+    if (amount > quantity)
+        return false;
+
+    quantity -= amount;
+
+    return true;
+}
