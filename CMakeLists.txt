@@ -13,6 +13,7 @@ include_directories(include)
 set(SOURCES
     src/main.cpp
     src/Product.cpp
+    src/Warehouse.cpp
 )
 
 # 生成可执行文件
