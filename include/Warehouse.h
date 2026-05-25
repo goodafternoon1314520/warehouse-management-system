@@ -37,6 +37,15 @@ public:
 
     // 商品出库
     bool stockOut(int id, int amount);
+
+    // 商品总数
+    int getTotalProducts() const;
+
+    // 仓库总价值
+    double getTotalValue() const;
+
+    // 显示低库存商品
+    void showLowStockProducts(int threshold) const;
 };
 
 #endif

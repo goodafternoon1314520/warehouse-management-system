@@ -127,3 +127,30 @@ bool Warehouse::stockOut(int id, int amount) {
     }
     return success;
 }
+
+int Warehouse::getTotalProducts() const {
+    return products.size();
+}
+
+double Warehouse::getTotalValue() const {
+    double total = 0;
+
+    for (const auto& product : products)
+        total += product.getQuantity() * product.getPrice();
+
+    return total;
+}
+
+void Warehouse::showLowStockProducts(int threshold) const {
+    bool found = false;
+
+    for (const auto& product : products) {
+        if (product.getQuantity() < threshold) {
+            product.display();
+            found = true;
+        }
+    }
+
+    if (!found)
+        std::cout << "No low stock products." << std::endl;
+}

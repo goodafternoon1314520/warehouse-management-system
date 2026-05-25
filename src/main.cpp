@@ -48,6 +48,7 @@ int main() {
         std::cout << "6. Stock In\n";
         std::cout << "7. Stock Out\n";
         std::cout << "8. Save Data\n";
+        std::cout << "9. Statistics\n";
         std::cout << "0. Exit\n";
 
         std::cout << "Choose: ";
@@ -187,6 +188,16 @@ int main() {
 
         else if (choice == 8)
             warehouse.saveToFile("../data/products.txt");
+
+        else if (choice == 9) {
+            std::cout << "\n===== Statistics =====\n";
+            std::cout << "Total Products: " << warehouse.getTotalProducts() << std::endl;
+
+            std::cout << "Total Inventory Value: " << warehouse.getTotalValue() << std::endl;
+
+            std::cout << "\nLow Stock Products: " << std::endl;
+            warehouse.showLowStockProducts(5);
+        }
 
         else if (choice == 0) {
             // 退出并自动保存
