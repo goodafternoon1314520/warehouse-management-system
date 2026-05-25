@@ -15,6 +15,8 @@ set(SOURCES
     src/Product.cpp
     src/Warehouse.cpp
     src/Logger.cpp
+    src/User.cpp
+    src/UserManager.cpp
 )
 
 # 生成可执行文件

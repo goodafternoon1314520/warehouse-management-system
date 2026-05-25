@@ -3,8 +3,33 @@
 
 #include "../include/Product.h"
 #include "../include/Warehouse.h"
+#include "../include/UserManager.h"
 
 int main() {
+    UserManager userManager;
+
+    userManager.loadUsers("../data/users.txt");
+
+    std::string username;
+    std::string password;
+
+    std::cout << "===== Login =====\n";
+
+    std::cout << "Username: ";
+    std::cin >> username;
+
+    std::cout << "Password: ";
+    std::cin >> password;
+
+    User* currentUser = userManager.login(username, password);
+
+    if (currentUser == nullptr) {
+        std::cout << "Login failed!\n";
+        return 0;
+    }
+
+    std::cout << "Welcome " << currentUser -> getUsername() << std::endl;
+
     // std::vector<Product> products;
     Warehouse warehouse;
 
@@ -83,6 +108,11 @@ int main() {
         }
 
         else if (choice == 4) {
+            if (currentUser -> getRole() != "admin") {
+                std::cout << "Promission denied\n";
+                continue;
+            }
+
             int id;
 
             std::cout << "Input Product ID: ";
@@ -95,6 +125,11 @@ int main() {
         }
 
         else if (choice == 5) {
+            if (currentUser -> getRole() != "admin") {
+                std::cout << "Promission denied\n";
+                continue;
+            }
+
             int id;
             std::string name;
             int quantity;
