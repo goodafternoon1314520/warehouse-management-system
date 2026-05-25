@@ -224,3 +224,31 @@ void Warehouse::loadFromDatabase() {
 
     std::cout << "Products loaded from database." << std::endl;
 }
+
+bool Warehouse::updateProductInDB(int id, std::string name, int quantity, double price) {
+    std::string sql = "UPDATE products SET "
+                      "name = '" + name + "', "
+                      "quantity = " + std::to_string(quantity) + ", "
+                      "price = " + std::to_string(price) +
+                      " WHERE id = " + std::to_string(id) + ";";
+
+    return database.execute(sql);
+}
+
+bool Warehouse::deleteProductFromDB(int id) {
+    std::string sql = "DELETE FROM products WHERE id = " + std::to_string(id) + ";";
+
+    return database.execute(sql);
+}
+
+void Warehouse::showAllFromDB() {
+    std::string sql = "SELECT * FROM products;";
+
+    sqlite3_exec(database.getDB(),
+                 sql.c_str(),
+                 loadCallback,
+                 &products,
+                 nullptr);
+
+    showProducts();
+}

@@ -61,6 +61,12 @@ public:
     void searchByName(const std::string& name);
 
     Warehouse();
+
+    bool updateProductInDB(int id, std::string name, int quantity, double price);
+
+    bool deleteProductFromDB(int id);
+
+    void showAllFromDB();
 };
 
 #endif

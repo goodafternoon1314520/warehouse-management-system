@@ -62,6 +62,9 @@ int main() {
             std::cout << "10. Sort By Price\n";
             std::cout << "11. Sort By Quantity\n";
             std::cout << "12. Search By name\n";
+            std::cout << "13. Update Product (DB)\n";
+            std::cout << "14. Delete Product (DB)\n";
+            std::cout << "15. Reload From DB\n";
             std::cout << "0. Exit\n";
 
             std::cout << "Choose: ";
@@ -243,6 +246,41 @@ int main() {
                 name = Utils::inputString();
                 warehouse.searchByName(name);
             }
+
+            else if (choice == 13) {
+                int id;
+                std::string name;
+                int quantity;
+                double price;
+
+                std::cout << "ID: ";
+                std::cin >> id;
+
+                std::cout << "New Name: ";
+                std::cin >> name;
+
+                std::cout << "New Quantity: ";
+                std::cin >> quantity;
+
+                std::cout << "New Price: ";
+                std::cin >> price;
+
+                if (warehouse.updateProductInDB(id, name, quantity, price))
+                    std::cout << "Updated successfully!\n";
+            }
+
+            else if (choice == 14) {
+                int id;
+
+                std::cout << "ID: ";
+                std::cin >> id;
+
+                if (warehouse.deleteProductFromDB(id))
+                    std::cout << "Deleted successfully!\n";
+            }
+
+            else if (choice == 15)
+                warehouse.loadFromDatabase();
 
             else if (choice == 0) {
                 // 退出并自动保存
