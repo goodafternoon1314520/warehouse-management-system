@@ -4,8 +4,25 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <vector>
+
+static int loadCallback(void* data, int argc, char** argv, char** azColName) {
+    std::vector<Product>* products = static_cast<std::vector<Product>*>(data);
+
+    int id = std::stoi(argv[0]);
+    std::string name = argv[1];
+    int quantity = std::stoi(argv[2]);
+    double price = std::stod(argv[3]);
+
+    Product product(id ,name, quantity, price);
+
+    products -> push_back(product);
+
+    return 0;
+}
 
 bool Warehouse::addProduct(const Product& product) {
+    /*
     for (const auto& p : products) {
         if (p.getId() == product.getId()) {
             std::cout << "Product ID already exists!\n";
@@ -16,6 +33,19 @@ bool Warehouse::addProduct(const Product& product) {
     products.push_back(product);
 
     return true;
+    */
+
+    std::string sql = "INSERT INTO products (id, name, quantity, price) VALUES (" +
+                      std::to_string(product.getId()) +
+                      ", '" +
+                      product.getName() +
+                      "', " +
+                      std::to_string(product.getQuantity()) +
+                      ", " +
+                      std::to_string(product.getPrice()) +
+                      ");";
+
+    return database.execute(sql);
 }
 
 void Warehouse::showProducts() const {
@@ -48,6 +78,7 @@ void Warehouse::saveToFile(const std::string& filename) {
     std::cout << "Data saved successfully!\n";
 }
 
+/*
 void Warehouse::loadFromFile(const std::string& filename) {
     std::ifstream fin(filename);
 
@@ -70,6 +101,7 @@ void Warehouse::loadFromFile(const std::string& filename) {
 
     std::cout << "Data loaded successfully!\n";
 }
+*/
 
 Product* Warehouse::findProduct(int id) {
     for (auto& product : products) {
@@ -177,4 +209,18 @@ void Warehouse::searchByName(const std::string& name) {
     }
     if (!found)
         std::cout << "Product not found." << std::endl;
+}
+
+Warehouse::Warehouse() {
+    database.connect("../data/Warehouse.db");
+}
+
+void Warehouse::loadFromDatabase() {
+    products.clear();
+
+    std::string sql = "SELECT * FROM products;";
+
+    sqlite3_exec(database.getDB(), sql.c_str(), loadCallback, &products, nullptr);
+
+    std::cout << "Products loaded from database." << std::endl;
 }

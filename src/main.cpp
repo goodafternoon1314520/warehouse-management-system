@@ -11,7 +11,7 @@ int main() {
     try {
         Database database;
 
-        database.connect("../data/warehouse.db");
+        // database.connect("../data/warehouse.db");
 
         UserManager userManager;
 
@@ -43,7 +43,8 @@ int main() {
         Warehouse warehouse;
 
         // 启动自动加载
-        warehouse.loadFromFile("../data/products.txt");
+        // warehouse.loadFromFile("../data/products.txt");
+        warehouse.loadFromDatabase();
 
         int choice;
 

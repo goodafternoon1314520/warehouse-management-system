@@ -39,3 +39,16 @@ sqlite3* Database::getDB() {
     return db;
 }
 
+bool Database::query(const std::string& sql, int (*callback)(void*, int, char**, char**)) {
+    char* errMsg = nullptr;
+
+    int result = sqlite3_exec(db, sql.c_str(), callback, nullptr, &errMsg);
+
+    if (result != SQLITE_OK) {
+        std::cout << "SQL Error: " << errMsg << std::endl;
+
+        return false;
+    }
+    return true;
+}
+

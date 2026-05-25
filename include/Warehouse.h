@@ -5,10 +5,13 @@
 #include <string>
 
 #include "Product.h"
+#include "Database.h"
 
 class Warehouse {
 private:
     std::vector<Product> products;
+
+    Database database;
 
 public:
     // 添加商品
@@ -21,7 +24,8 @@ public:
     void saveToFile(const std::string& filename);
 
     // 加载文件
-    void loadFromFile(const std::string& filename);
+    // void loadFromFile(const std::string& filename);
+    void loadFromDatabase();
 
     // 查找商品
     Product* findProduct(int id);
@@ -55,6 +59,8 @@ public:
 
     // 按名称搜索
     void searchByName(const std::string& name);
+
+    Warehouse();
 };
 
 #endif

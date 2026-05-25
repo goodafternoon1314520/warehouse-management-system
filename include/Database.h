@@ -21,6 +21,9 @@ public:
 
     // 获取数据库对象
     sqlite3* getDB();
+
+    // 查询SQL
+    bool query(const std::string& sql, int (*callback)(void*, int, char**, char**));
 };
 
 #endif
