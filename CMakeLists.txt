@@ -18,7 +18,15 @@ set(SOURCES
     src/User.cpp
     src/UserManager.cpp
     src/Utils.cpp
+    src/Database.cpp
 )
 
 # 生成可执行文件
 add_executable(warehouse ${SOURCES})
+
+find_package(SQLite3 REQUIRED)
+
+target_link_libraries(
+        warehouse
+        SQLite::SQLite3
+)

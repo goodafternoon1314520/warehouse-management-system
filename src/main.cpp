@@ -5,9 +5,14 @@
 #include "../include/Warehouse.h"
 #include "../include/UserManager.h"
 #include "../include/Utils.h"
+#include "../include/Database.h"
 
 int main() {
     try {
+        Database database;
+
+        database.connect("../data/warehouse.db");
+
         UserManager userManager;
 
         userManager.loadUsers("../data/users.txt");
