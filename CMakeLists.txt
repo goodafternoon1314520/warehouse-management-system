@@ -17,6 +17,7 @@ set(SOURCES
     src/Logger.cpp
     src/User.cpp
     src/UserManager.cpp
+    src/Utils.cpp
 )
 
 # 生成可执行文件
