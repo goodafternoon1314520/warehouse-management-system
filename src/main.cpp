@@ -49,6 +49,9 @@ int main() {
         std::cout << "7. Stock Out\n";
         std::cout << "8. Save Data\n";
         std::cout << "9. Statistics\n";
+        std::cout << "10. Sort By Price\n";
+        std::cout << "11. Sort By Quantity\n";
+        std::cout << "12. Search By name\n";
         std::cout << "0. Exit\n";
 
         std::cout << "Choose: ";
@@ -197,6 +200,23 @@ int main() {
 
             std::cout << "\nLow Stock Products: " << std::endl;
             warehouse.showLowStockProducts(5);
+        }
+
+        else if (choice == 10) {
+            warehouse.sortByPrice();
+            warehouse.showProducts();
+        }
+
+        else if (choice == 11) {
+            warehouse.sortByQuantity();
+            warehouse.showProducts();
+        }
+
+        else if (choice == 12) {
+            std::string name;
+            std::cout << "Input product name: ";
+            std::cin >> name;
+            warehouse.searchByName(name);
         }
 
         else if (choice == 0) {

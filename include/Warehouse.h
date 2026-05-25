@@ -46,6 +46,15 @@ public:
 
     // 显示低库存商品
     void showLowStockProducts(int threshold) const;
+
+    // 按价格排序
+    void sortByPrice();
+
+    // 按库存排序
+    void sortByQuantity();
+
+    // 按名称搜索
+    void searchByName(const std::string& name);
 };
 
 #endif

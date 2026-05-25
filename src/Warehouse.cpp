@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 bool Warehouse::addProduct(const Product& product) {
     for (const auto& p : products) {
@@ -153,4 +154,27 @@ void Warehouse::showLowStockProducts(int threshold) const {
 
     if (!found)
         std::cout << "No low stock products." << std::endl;
+}
+
+void Warehouse::sortByPrice() {
+    sort(products.begin(), products.end(), [](const Product& a, const Product& b) {return a.getPrice() > b.getPrice();});
+    std::cout << "Sorted by price." << std::endl;
+}
+
+void Warehouse::sortByQuantity() {
+    sort(products.begin(), products.end(), [](const Product& a, const Product& b) {return a.getQuantity() < b.getQuantity();});
+    std::cout << "Sorted by quantity." << std::endl;
+}
+
+void Warehouse::searchByName(const std::string& name) {
+    bool found = false;
+
+    for (const auto& product : products) {
+        if (product.getName() == name) {
+            product.display();
+            found = true;
+        }
+    }
+    if (!found)
+        std::cout << "Product not found." << std::endl;
 }
