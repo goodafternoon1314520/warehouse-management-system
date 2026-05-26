@@ -1,9 +1,26 @@
 #include <iostream>
 #include <unistd.h>
 #include <cstring>
+#include <thread>
 
 #include <sys/socket.h>
 #include <netinet/in.h>
+
+void handleClient(int clientSocket) {
+    char buffer[1024] = {0};
+
+    read(clientSocket, buffer, 1024);
+
+    std::cout << "Client says: " << buffer << std::endl;
+
+    const char* response = "Message received.";
+
+    send(clientSocket, response, strlen(response), 0);
+
+    close(clientSocket);
+
+    std::cout << "Client disconnected!\n";
+}
 
 int main() {
     int server_fd;
@@ -30,25 +47,19 @@ int main() {
         return 0;
     }
 
-    std::cout << "Server started...\n";
+    std::cout << "Muti-thread Server started...\n";
 
-    int addrlen = sizeof(address);
+    while (true) {
+        int addrlen = sizeof(address);
 
-    int new_socket = accept(server_fd, (sockaddr*)&address, (socklen_t*)&addrlen);
+        int clientSocket = accept(server_fd, (sockaddr*)&address, (socklen_t*)&addrlen);
 
-    std::cout << "Client connected!\n";
+        std::cout << "Client connected!\n";
 
-    char buffer[1024] = {0};
+        std::thread clientThread(handleClient, clientSocket);
 
-    read(new_socket, buffer, 1024);
-
-    std::cout << "Client says: " << buffer << std::endl;
-
-    const char* message = "Hello from server";
-
-    send(new_socket, message,strlen(message),0);
-
-    close(new_socket);
+        clientThread.detach();
+    }
     close(server_fd);
 
     return 0;
