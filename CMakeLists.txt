@@ -19,6 +19,7 @@ set(SOURCES
     src/UserManager.cpp
     src/Utils.cpp
     src/Database.cpp
+    src/TokenManager.cpp
 )
 
 # 生成可执行文件

@@ -7,7 +7,11 @@
 #include <netinet/in.h>
 #include <nlohmann/json.hpp>
 
+#include "../include/TokenManager.h"
+
 using json = nlohmann::json;
+
+TokenManager tokenManager;
 
 void handleClient(int clientSocket) {
     char buffer[1024] = {0};
@@ -20,10 +24,45 @@ void handleClient(int clientSocket) {
     std::string action = request["action"];
     std::cout << "Action" << action << std::endl;
 
+    if (action == "login"){
+        std::string username = request["username"];
+        std::string password = request["password"];
+
+        // 简化版验证
+        if (username == "admin" && password == "123456") {
+            std::string token = tokenManager.generateToken(username);
+
+            json response;
+
+            response["status"] = "success";
+            response["token"] = token;
+
+            std::string responseText = response.dump();
+
+            send(clientSocket, responseText.c_str(), responseText.length(), 0);
+        }
+    }
+
     int id = request["id"];
     int amount = request["amount"];
+    std::string token = request["token"];
     std::cout << "Product ID: " << id << std::endl;
     std::cout << "Product amount: " << amount << std::endl;
+
+    if (!tokenManager.validateToken(token)) {
+        json response;
+
+        response["status"] = "error";
+        response["message"] = "invalid token";
+
+        std::string responseText = response.dump();
+
+        send(clientSocket, responseText.c_str(), responseText.length(), 0);
+
+        close(clientSocket);
+        
+        return;
+    }
 
     // const char* response = "Message received.";
 

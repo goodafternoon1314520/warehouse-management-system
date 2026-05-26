@@ -23,7 +23,10 @@ int main() {
     // const char* message = "Hello Server";
 
     json request;
-    request["action"] = "stock_out";
+    // request["action"] = "stock_out";
+    request["action"] = "login";
+    request["username"] = "admin";
+    request["password"] = "123456";
     request["id"] = 1001;
     request["amount"] = 5;
     std::string message = request.dump();
@@ -37,8 +40,10 @@ int main() {
     // std::cout << "Server says: " << buffer << std::endl;
 
     json response = json::parse(buffer);
+    std::string token = response["token"];
     std::cout << "Status: " << response["status"] << std::endl;
     std::cout << "Message: " << response["message"] << std::endl;
+    std::cout << "Token: " << token << std::endl;
 
     close(sock);
 
