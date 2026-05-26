@@ -133,12 +133,22 @@ bool Warehouse::updateProduct(int id, std::string name, int quantity, double pri
 }
 
 bool Warehouse::stockIn(int id, int amount) {
+    // 加锁
+    std::lock_guard<std::mutex> lock(productMutex);
+
     Product* product = findProduct(id);
 
     if (product == nullptr)
         return false;
 
     product -> increaseQuantity(amount);
+
+    // 同步数据库
+    std::string sql = "UPDATE products SET quantity = " +
+                      std::to_string(product -> getQuantity()) +
+                      " WHERE id = " + std::to_string(id) + ";";
+
+    database.execute(sql);
 
     std::string logMessage = "Stock In\nProduct ID: " + std::to_string(id) + "\nAmount: +" + std::to_string(amount);
     Logger::log(logMessage);
@@ -147,6 +157,9 @@ bool Warehouse::stockIn(int id, int amount) {
 }
 
 bool Warehouse::stockOut(int id, int amount) {
+    // 加锁
+    std::lock_guard<std::mutex> lock(productMutex);
+
     Product* product = findProduct(id);
 
     if (product == nullptr)
@@ -155,6 +168,13 @@ bool Warehouse::stockOut(int id, int amount) {
     bool success =  product -> decreaseQuantity(amount);
 
     if (success) {
+        // 同步数据库
+        std::string sql = "UPDATE products SET quantity = " +
+                          std::to_string(product -> getQuantity()) +
+                          " WHERE id = " + std::to_string(id) + ";";
+
+        database.execute(sql);
+
         std::string logMessage = "Stock Out\nProduct ID: " + std::to_string(id) + "\nAmount: -" + std::to_string(amount);
         Logger::log(logMessage);
     }

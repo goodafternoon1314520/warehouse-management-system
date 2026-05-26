@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <mutex>
 
 #include "Product.h"
 #include "Database.h"
@@ -12,6 +13,8 @@ private:
     std::vector<Product> products;
 
     Database database;
+
+    mutable std::mutex productMutex;
 
 public:
     // 添加商品

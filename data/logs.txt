@@ -3,3 +3,73 @@
 Product ID: 1001
 Amount: -10
 -------------------------
+[Tue May 26 15:15:52 2026
+]Stock In
+Product ID: 1002
+Amount: +30
+-------------------------
+[Tue May 26 15:19:52 2026
+]Stock Out
+Product ID: 1002
+Amount: -10
+-------------------------
+[Tue May 26 15:24:07 2026
+]Stock In
+Product ID: 1002
+Amount: +50
+-------------------------
+[Tue May 26 15:31:46 2026
+]Stock Out
+Product ID: 1002
+Amount: -20
+-------------------------
+[Tue May 26 15:33:29 2026
+]Stock In
+Product ID: 1002
+Amount: +100
+-------------------------
+[Tue May 26 15:38:59 2026
+]Stock In
+Product ID: 1002
+Amount: +100
+-------------------------
+[Tue May 26 15:44:23 2026
+]Stock Out
+Product ID: 1002
+Amount: -20
+-------------------------
+[Tue May 26 16:12:44 2026
+]Stock In
+Product ID: 1002
+Amount: +40
+-------------------------
+[Tue May 26 16:17:23 2026
+]Stock In
+Product ID: 1002
+Amount: +100
+-------------------------
+[Tue May 26 16:18:09 2026
+]Stock Out
+Product ID: 1002
+Amount: -40
+-------------------------
+[Tue May 26 16:19:06 2026
+]Stock Out
+Product ID: 1002
+Amount: -40
+-------------------------
+[Tue May 26 16:20:58 2026
+]Stock Out
+Product ID: 1002
+Amount: -60
+-------------------------
+[Tue May 26 16:22:38 2026
+]Stock Out
+Product ID: 1002
+Amount: -60
+-------------------------
+[Tue May 26 16:23:19 2026
+]Stock Out
+Product ID: 1002
+Amount: -40
+-------------------------
