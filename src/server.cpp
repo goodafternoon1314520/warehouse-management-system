@@ -5,17 +5,34 @@
 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 void handleClient(int clientSocket) {
     char buffer[1024] = {0};
 
     read(clientSocket, buffer, 1024);
 
-    std::cout << "Client says: " << buffer << std::endl;
+    // std::cout << "Client says: " << buffer << std::endl;
 
-    const char* response = "Message received.";
+    json request = json::parse(buffer);
+    std::string action = request["action"];
+    std::cout << "Action" << action << std::endl;
 
-    send(clientSocket, response, strlen(response), 0);
+    int id = request["id"];
+    int amount = request["amount"];
+    std::cout << "Product ID: " << id << std::endl;
+    std::cout << "Product amount: " << amount << std::endl;
+
+    // const char* response = "Message received.";
+
+    json response;
+    response["status"] = "success";
+    response["message"] = "stock out completed";
+    std::string responseText = response.dump();
+
+    send(clientSocket, responseText.c_str(), responseText.length(), 0);
 
     close(clientSocket);
 

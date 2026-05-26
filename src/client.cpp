@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <cstring>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 int main() {
     int sock = 0;
@@ -18,15 +20,25 @@ int main() {
 
     connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
 
-    const char* message = "Hello Server";
+    // const char* message = "Hello Server";
 
-    send(sock, message, strlen(message), 0);
+    json request;
+    request["action"] = "stock_out";
+    request["id"] = 1001;
+    request["amount"] = 5;
+    std::string message = request.dump();
+
+    send(sock, message.c_str(), message.length(), 0);
 
     char buffer[1024] = {0};
 
     read(sock, buffer, 1024);
 
-    std::cout << "Server says: " << buffer << std::endl;
+    // std::cout << "Server says: " << buffer << std::endl;
+
+    json response = json::parse(buffer);
+    std::cout << "Status: " << response["status"] << std::endl;
+    std::cout << "Message: " << response["message"] << std::endl;
 
     close(sock);
 
