@@ -22,7 +22,23 @@ set(SOURCES
 )
 
 # 生成可执行文件
-add_executable(warehouse ${SOURCES})
+add_executable(
+        warehouse
+        src/main.cpp
+        ${SOURCES}
+)
+
+# 服务器
+add_executable(
+        server
+        src/server.cpp
+)
+
+# 客户端
+add_executable(
+        client
+        src/client.cpp
+)
 
 find_package(SQLite3 REQUIRED)
 
