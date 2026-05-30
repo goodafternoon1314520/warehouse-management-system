@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 
 #include "../include/TokenManager.h"
+#include "../include/ThreadPool.h"
 
 using json = nlohmann::json;
 
@@ -83,6 +84,8 @@ int main() {
 
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
 
+    ThreadPool pool(4);
+
     if (server_fd < 0) {
         std::cout << "socket error!\n";
         return 0;
@@ -112,9 +115,13 @@ int main() {
 
         std::cout << "Client connected!\n";
 
+        /*
         std::thread clientThread(handleClient, clientSocket);
 
         clientThread.detach();
+        */
+
+        pool.enqueue([clientSocket]{handleClient(clientSocket);});
     }
     close(server_fd);
 

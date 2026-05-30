@@ -20,6 +20,7 @@ set(SOURCES
     src/Utils.cpp
     src/Database.cpp
     src/TokenManager.cpp
+    src/ThreadPool.cpp
 )
 
 # 生成可执行文件
@@ -33,6 +34,8 @@ add_executable(
 add_executable(
         server
         src/server.cpp
+        src/TokenManager.cpp
+        src/ThreadPool.cpp
 )
 
 # 客户端
