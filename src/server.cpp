@@ -1,6 +1,5 @@
 #include <iostream>
 #include <unistd.h>
-#include <cstring>
 #include <thread>
 
 #include <sys/socket.h>
@@ -9,74 +8,55 @@
 
 #include "../include/TokenManager.h"
 #include "../include/ThreadPool.h"
-
-using json = nlohmann::json;
+#include "../generated/proto/warehouse.pb.h"
 
 TokenManager tokenManager;
 
 void handleClient(int clientSocket) {
+    std::cout << "handleCLient start\n";
     char buffer[1024] = {0};
 
-    read(clientSocket, buffer, 1024);
+    int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
 
-    // std::cout << "Client says: " << buffer << std::endl;
-
-    json request = json::parse(buffer);
-    std::string action = request["action"];
-    std::cout << "Action" << action << std::endl;
-
-    if (action == "login"){
-        std::string username = request["username"];
-        std::string password = request["password"];
-
-        // 简化版验证
-        if (username == "admin" && password == "123456") {
-            std::string token = tokenManager.generateToken(username);
-
-            json response;
-
-            response["status"] = "success";
-            response["token"] = token;
-
-            std::string responseText = response.dump();
-
-            send(clientSocket, responseText.c_str(), responseText.length(), 0);
-        }
-    }
-
-    int id = request["id"];
-    int amount = request["amount"];
-    std::string token = request["token"];
-    std::cout << "Product ID: " << id << std::endl;
-    std::cout << "Product amount: " << amount << std::endl;
-
-    if (!tokenManager.validateToken(token)) {
-        json response;
-
-        response["status"] = "error";
-        response["message"] = "invalid token";
-
-        std::string responseText = response.dump();
-
-        send(clientSocket, responseText.c_str(), responseText.length(), 0);
-
+    if (bytesReceived <= 0) {
         close(clientSocket);
-        
         return;
     }
 
-    // const char* response = "Message received.";
+    std::cout << "Received bytes: " << bytesReceived << std::endl;
 
-    json response;
-    response["status"] = "success";
-    response["message"] = "stock out completed";
-    std::string responseText = response.dump();
+    warehouse::LoginRequest request;
 
-    send(clientSocket, responseText.c_str(), responseText.length(), 0);
+    if (!request.ParseFromArray(buffer, bytesReceived)) {
+        std::cout << "Parse protobuf failed\n";
+        close(clientSocket);
+        return;
+    }
+
+    std::string username = request.username();
+    std::string password = request.password();
+    std::cout << username << std::endl << password << std::endl;
+
+    bool success = username == "admin" && password == "123456";
+
+    warehouse::LoginResponse response;
+
+    if (success) {
+        response.set_success(true);
+        response.set_token(tokenManager.generateToken(username));
+        response.set_message("login success");
+    }
+    else {
+        response.set_success(false);
+        response.set_message("login failed");
+    }
+
+    std::string responseData;
+    response.SerializeToString(&responseData);
+
+    send(clientSocket, responseData.data(), responseData.size(), 0);
 
     close(clientSocket);
-
-    std::cout << "Client disconnected!\n";
 }
 
 int main() {
@@ -113,13 +93,12 @@ int main() {
 
         int clientSocket = accept(server_fd, (sockaddr*)&address, (socklen_t*)&addrlen);
 
+        if (clientSocket < 0) {
+            std::cout << "accept error!\n";
+            continue;
+        }
+
         std::cout << "Client connected!\n";
-
-        /*
-        std::thread clientThread(handleClient, clientSocket);
-
-        clientThread.detach();
-        */
 
         pool.enqueue([clientSocket]{handleClient(clientSocket);});
     }

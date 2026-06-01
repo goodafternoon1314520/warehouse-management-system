@@ -1,52 +1,100 @@
 cmake_minimum_required(VERSION 3.10)
 
-# 项目名称
-project(WarehouseSystem)
+project(warehouse_system)
 
-# 使用 C++17
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 头文件目录
-include_directories(include)
+# ========================
+# 第三方库
+# ========================
 
-# 源文件
-set(SOURCES
-    src/main.cpp
-    src/Product.cpp
-    src/Warehouse.cpp
-    src/Logger.cpp
-    src/User.cpp
-    src/UserManager.cpp
-    src/Utils.cpp
-    src/Database.cpp
-    src/TokenManager.cpp
-    src/ThreadPool.cpp
-)
+# Protobuf
+find_package(Protobuf REQUIRED)
 
-# 生成可执行文件
-add_executable(
-        warehouse
-        src/main.cpp
-        ${SOURCES}
-)
+# Threads
+find_package(Threads REQUIRED)
 
-# 服务器
-add_executable(
-        server
-        src/server.cpp
-        src/TokenManager.cpp
-        src/ThreadPool.cpp
-)
-
-# 客户端
-add_executable(
-        client
-        src/client.cpp
-)
-
+# SQLite
 find_package(SQLite3 REQUIRED)
 
-target_link_libraries(
-        warehouse
-        SQLite::SQLite3
+# ========================
+# include 目录
+# ========================
+include_directories(
+        include
+        ${Protobuf_INCLUDE_DIRS}
 )
+
+# ========================
+# protobuf 生成文件
+# ========================
+set(PROTO_SRCS
+        generated/proto/warehouse.pb.cc
+)
+
+set(PROTO_HDRS
+        generated/proto/warehouse.pb.h
+)
+
+# ========================
+# 项目源文件
+# ========================
+set(SOURCES
+
+        src/server.cpp
+        src/client.cpp
+
+        src/ThreadPool.cpp
+        src/TokenManager.cpp
+
+        ${PROTO_SRCS}
+)
+
+# ========================
+# server 可执行文件
+# ========================
+add_executable(server
+        src/server.cpp
+        src/ThreadPool.cpp
+        src/TokenManager.cpp
+        generated/proto/warehouse.pb.cc
+)
+
+target_link_libraries(server
+        ${Protobuf_LIBRARIES}
+        SQLite::SQLite3
+        Threads::Threads
+)
+
+# ========================
+# client 可执行文件
+# ========================
+add_executable(client
+        src/client.cpp
+        generated/proto/warehouse.pb.cc
+)
+
+target_link_libraries(client
+        ${Protobuf_LIBRARIES}
+        Threads::Threads
+)
+
+# ========================
+# protobuf 测试程序（可选）
+# ========================
+add_executable(proto_test
+        src/protobuf_test.cpp
+        generated/proto/warehouse.pb.cc
+)
+
+target_link_libraries(proto_test
+        ${Protobuf_LIBRARIES}
+        Threads::Threads
+)
+
+# ========================
+# 编译信息输出
+# ========================
+message(STATUS "Protobuf include: ${Protobuf_INCLUDE_DIRS}")
+message(STATUS "Protobuf libs: ${Protobuf_LIBRARIES}")
