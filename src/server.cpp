@@ -9,25 +9,24 @@
 #include "../include/TokenManager.h"
 #include "../include/ThreadPool.h"
 #include "../generated/proto/warehouse.pb.h"
+#include "../include/MessageFramer.h"
 
 TokenManager tokenManager;
 
 void handleClient(int clientSocket) {
     std::cout << "handleCLient start\n";
-    char buffer[1024] = {0};
 
-    int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
+    std::string requestData;
 
-    if (bytesReceived <= 0) {
+    if (!MessageFramer::recvMessage(clientSocket, requestData)) {
+        std::cout << "recv message failed\n";
         close(clientSocket);
         return;
     }
 
-    std::cout << "Received bytes: " << bytesReceived << std::endl;
-
     warehouse::LoginRequest request;
 
-    if (!request.ParseFromArray(buffer, bytesReceived)) {
+    if (!request.ParseFromString(requestData)) {
         std::cout << "Parse protobuf failed\n";
         close(clientSocket);
         return;
@@ -52,9 +51,16 @@ void handleClient(int clientSocket) {
     }
 
     std::string responseData;
-    response.SerializeToString(&responseData);
 
-    send(clientSocket, responseData.data(), responseData.size(), 0);
+    if (!response.SerializeToString(&responseData)) {
+        std::cout << "Serialize response failed\n";
+        close(clientSocket);
+        return;
+    }
+
+    auto packet = MessageFramer::pack(responseData);
+    if (!MessageFramer::sendAll(clientSocket, packet.data(), packet.size()))
+        std::cout << "send failed\n";
 
     close(clientSocket);
 }

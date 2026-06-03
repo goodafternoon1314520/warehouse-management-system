@@ -3,6 +3,8 @@
 #include <arpa/inet.h>
 #include <nlohmann/json.hpp>
 #include "../generated/proto/warehouse.pb.h"
+#include "../include/Crypto.h"
+#include "../include/MessageFramer.h"
 
 int main() {
     int sock = 0;
@@ -21,6 +23,8 @@ int main() {
         return -1;
     };
 
+    // AESContext aesKey = Crypto::generateAESKey();
+
     // 创建请求
     warehouse::LoginRequest req;
     req.set_username("admin");
@@ -33,19 +37,23 @@ int main() {
         return -1;
     };
 
+    // std::string encryptedData = Crypto::encryptAES(message, aesKey.key, aesKey.iv);
+
     // 发送
-    send(sock, message.data(), message.size(), 0);
+    auto packet = MessageFramer::pack(message);
+    if (!MessageFramer::sendAll(sock, packet.data(), packet.size())){
+        std::cout << "send failed\n";
+        return -1;
+    }
 
-    char buffer[1024] = {0};
-
-    int bytes = recv(sock, buffer, sizeof(buffer), 0);
-    if (bytes <= 0) {
-        std::cout << "Server disconnected!\n";
+    std::string responseData;
+    if (!MessageFramer::recvMessage(sock, responseData)) {
+        std::cout << "recv failed!\n";
         return -1;
     }
 
     warehouse::LoginResponse response;
-    if (!response.ParseFromArray(buffer, bytes)) {
+    if (!response.ParseFromString(responseData)) {
         std::cout << "Parse response error!\n";
         return -1;
     };

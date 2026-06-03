@@ -12,3 +12,9 @@ message LoginResponse {
     string token = 2;
     string message = 3;
 }
+
+message SecureMessage {
+    bytes iv = 1;
+    bytes tag = 2;
+    bytes cipher = 3;
+}

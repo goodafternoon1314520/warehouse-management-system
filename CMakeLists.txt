@@ -18,6 +18,9 @@ find_package(Threads REQUIRED)
 # SQLite
 find_package(SQLite3 REQUIRED)
 
+# OpenSSL
+find_package(OpenSSL REQUIRED)
+
 # ========================
 # include 目录
 # ========================
@@ -59,12 +62,17 @@ add_executable(server
         src/ThreadPool.cpp
         src/TokenManager.cpp
         generated/proto/warehouse.pb.cc
+        src/Crypto.cpp
+        src/RSAUtil.cpp
+        src/MessageFramer.cpp
 )
 
 target_link_libraries(server
         ${Protobuf_LIBRARIES}
         SQLite::SQLite3
         Threads::Threads
+        OpenSSL::SSL
+        OpenSSL::Crypto
 )
 
 # ========================
@@ -72,12 +80,19 @@ target_link_libraries(server
 # ========================
 add_executable(client
         src/client.cpp
+        src/MessageFramer.cpp
+
+        src/Crypto.cpp
+        src/RSAUtil.cpp
+
         generated/proto/warehouse.pb.cc
 )
 
 target_link_libraries(client
         ${Protobuf_LIBRARIES}
         Threads::Threads
+        OpenSSL::SSL
+        OpenSSL::Crypto
 )
 
 # ========================
@@ -85,12 +100,47 @@ target_link_libraries(client
 # ========================
 add_executable(proto_test
         src/protobuf_test.cpp
+
+        src/Crypto.cpp
+        src/RSAUtil.cpp
+
         generated/proto/warehouse.pb.cc
 )
 
 target_link_libraries(proto_test
         ${Protobuf_LIBRARIES}
         Threads::Threads
+        OpenSSL::SSL
+        OpenSSL::Crypto
+)
+
+# ========================
+# Crypto 测试程序
+# ========================
+add_executable(crypto_test
+        src/crypto_test.cpp
+        src/Crypto.cpp
+        src/RSAUtil.cpp
+)
+
+target_link_libraries(crypto_test
+        ${Protobuf_LIBRARIES}
+        Threads::Threads
+        OpenSSL::SSL
+        OpenSSL::Crypto
+)
+
+# ========================
+# RSA 测试程序
+# ========================
+add_executable(rsa_test
+        src/rsa_test.cpp
+        src/RSAUtil.cpp
+)
+
+target_link_libraries(rsa_test
+        OpenSSL::SSL
+        OpenSSL::Crypto
 )
 
 # ========================
