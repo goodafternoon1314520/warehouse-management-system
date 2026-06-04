@@ -58,7 +58,7 @@ set(SOURCES
 # server 可执行文件
 # ========================
 add_executable(server
-        src/server.cpp
+        server/server.cpp
         src/ThreadPool.cpp
         src/TokenManager.cpp
         generated/proto/warehouse.pb.cc
@@ -79,7 +79,7 @@ target_link_libraries(server
 # client 可执行文件
 # ========================
 add_executable(client
-        src/client.cpp
+        client/client.cpp
         src/MessageFramer.cpp
 
         src/Crypto.cpp
@@ -99,7 +99,7 @@ target_link_libraries(client
 # protobuf 测试程序（可选）
 # ========================
 add_executable(proto_test
-        src/protobuf_test.cpp
+        tests/protobuf_test.cpp
 
         src/Crypto.cpp
         src/RSAUtil.cpp
@@ -118,7 +118,7 @@ target_link_libraries(proto_test
 # Crypto 测试程序
 # ========================
 add_executable(crypto_test
-        src/crypto_test.cpp
+        tests/crypto_test.cpp
         generated/proto/warehouse.pb.cc
         src/Crypto.cpp
         src/RSAUtil.cpp
@@ -135,14 +135,31 @@ target_link_libraries(crypto_test
 # RSA 测试程序
 # ========================
 add_executable(rsa_test
-        src/rsa_test.cpp
+        tests/rsa_test.cpp
         src/RSAUtil.cpp
+        src/RSAManager.cpp
 )
 
 target_link_libraries(rsa_test
         OpenSSL::SSL
         OpenSSL::Crypto
 )
+
+# ========================
+# RSA_ENC_DEC 测试程序
+# ========================
+add_executable(rsa_enc_dec_test
+        tests/rsa_enc_dec_test.cpp
+        src/RSAUtil.cpp
+        src/RSAManager.cpp
+)
+
+target_link_libraries(rsa_enc_dec_test
+        PRIVATE
+        OpenSSL::SSL
+        OpenSSL::Crypto
+)
+
 
 # ========================
 # 编译信息输出
