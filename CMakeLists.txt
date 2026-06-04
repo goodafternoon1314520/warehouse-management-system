@@ -119,6 +119,7 @@ target_link_libraries(proto_test
 # ========================
 add_executable(crypto_test
         src/crypto_test.cpp
+        generated/proto/warehouse.pb.cc
         src/Crypto.cpp
         src/RSAUtil.cpp
 )

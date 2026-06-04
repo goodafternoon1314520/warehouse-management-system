@@ -11,11 +11,11 @@ struct AESContext {
 
 class Crypto {
 public:
-    static std::vector<unsigned char> encryptAES(const std::string& plaintext, const std::vector<unsigned char>& key, const std::vector<unsigned char>& iv);
-    static std::string decryptAES(const std::vector<unsigned char>& ciphertext, const std::vector<unsigned char>& key, const std::vector<unsigned char>& iv);
-
     // 随机生成AES Key + IV
     static AESContext generateAESKey();
+
+    static bool encryptAES_GCM(const std::string& plaintext, const std::vector<unsigned char>& key, std::vector<unsigned char>& iv, std::vector<unsigned char>& ciphertext, std::vector<unsigned char>& tag);
+    static bool decryptAES_GCM(const std::vector<unsigned char>& ciphertext, const std::vector<unsigned char>& key, const std::vector<unsigned char>& iv, const std::vector<unsigned char>& tag, std::string& plaintext);
 };
 
 #endif

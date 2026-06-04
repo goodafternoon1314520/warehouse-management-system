@@ -1,238 +1,282 @@
-# 仓库管理系统（Warehouse Management System）
+# Warehouse Management System
 
-一个基于 Linux + C++17 开发的仓库管理系统。
+基于 Linux + C++17 开发的企业级仓库管理系统（WMS）。
 
-项目采用面向对象设计（OOP）开发，实现了商品管理、库存管理、用户权限控制、日志系统、数据统计等功能，并使用 SQLite 数据库进行数据持久化。
+## 项目简介
 
-该项目适用于：
+Warehouse Management System（WMS）是一个采用现代 C++ 技术栈实现的仓库管理系统。
 
-- Linux C++ 学习
-- 课程设计
-- GitHub 项目展示
-- 简历项目
-- 面向对象实践
-- SQLite 数据库实践
+项目采用客户端/服务端架构，支持：
 
----
+* 用户登录认证
+* Token 会话管理
+* 库存管理
+* 入库管理
+* 出库管理
+* 库存盘点
+* 盘点差异过账
+* SQLite 数据存储
+* Protobuf 高效数据传输
+* AES-256-GCM 安全通信
+* 多线程并发处理
 
-# 项目功能
-
-## 用户系统
-
-- 用户登录
-- 管理员权限
-- 员工权限
-- 权限控制
+项目目标是模拟企业级 WMS 系统的核心业务流程，并实现安全可靠的跨平台通信架构。
 
 ---
 
-## 商品管理
+## 技术栈
 
-- 添加商品
-- 删除商品
-- 修改商品
-- 查询商品
-- 按名称搜索商品
+### 开发环境
 
----
+* Ubuntu 24.04 LTS
+* GCC 13+
+* CMake 3.16+
+* Git
 
-## 库存管理
+### 核心技术
 
-- 商品入库
-- 商品出库
-- 库存不足检测
-
----
-
-## 数据统计
-
-- 商品总数统计
-- 仓库总价值统计
-- 低库存预警
+* C++17
+* Socket
+* Thread Pool
+* SQLite3
+* Protocol Buffers
+* OpenSSL
+* AES-256-GCM
+* Token Authentication
 
 ---
 
-## 排序系统
-
-- 按价格排序
-- 按库存排序
-
----
-
-## 日志系统
-
-自动记录：
-
-- 入库日志
-- 出库日志
-- 操作记录
-
----
-
-## 数据持久化
-
-- SQLite 数据库存储
-- 文件自动加载
-- SQL 数据查询
-
----
-
-# 技术栈
-
-## 开发环境
-
-- Linux
-- Ubuntu
-- VSCode
-- Git
-- GitHub
-
----
-
-## 编程语言
-
-- C++17
-
----
-
-## 使用技术
-
-- STL
-- 面向对象编程（OOP）
-- 文件IO
-- SQLite3
-- CMake
-- Git版本管理
-
----
-
-# 项目结构
+## 项目架构
 
 ```text
-warehouse_system/
-├── include/
-│   ├── Product.h
-│   ├── Warehouse.h
-│   ├── User.h
-│   ├── UserManager.h
-│   ├── Logger.h
-│   ├── Utils.h
-│   └── Database.h
+Client
+    │
+    ▼
+Protocol Buffers
+    │
+    ▼
+AES-256-GCM
+    │
+    ▼
+MessageFramer
+    │
+    ▼
+TCP Socket
+    │
+    ▼
+Server
+    │
+    ├── Authentication
+    ├── Inventory Service
+    ├── Stock In Service
+    ├── Stock Out Service
+    ├── Stocktaking Service
+    └── Settlement Service
+    │
+    ▼
+SQLite Database
+```
+
+---
+
+## 目录结构
+
+```text
+WarehouseSystem
 │
-├── src/
-│   ├── main.cpp
-│   ├── Product.cpp
-│   ├── Warehouse.cpp
-│   ├── User.cpp
-│   ├── UserManager.cpp
-│   ├── Logger.cpp
-│   ├── Utils.cpp
-│   └── Database.cpp
+├── client
+│   └── client.cpp
 │
-├── data/
-│   ├── warehouse.db
-│   ├── users.txt
-│   └── logs.txt
+├── server
+│   └── server.cpp
 │
-├── build/
+├── include
+│   ├── Crypto.h
+│   ├── MessageFramer.h
+│   ├── TokenManager.h
+│   ├── ThreadPool.h
+│   └── InventoryManager.h
+│
+├── src
+│   ├── Crypto.cpp
+│   ├── MessageFramer.cpp
+│   ├── TokenManager.cpp
+│   ├── ThreadPool.cpp
+│   └── InventoryManager.cpp
+│
+├── proto
+│   └── warehouse.proto
+│
+├── generated
+│   └── proto
+│
+├── database
+│   └── warehouse.db
+│
+├── tests
+│
+├── docs
+│
+├── build
 │
 ├── CMakeLists.txt
-│
-├── .gitignore
 │
 └── README.md
 ```
 
 ---
 
-# 系统功能展示
+## 功能模块
 
-## 登录系统
+### 用户认证
+
+支持：
+
+* 登录
+* Token生成
+* Token验证
+* 会话管理
+
+---
+
+### 库存管理
+
+支持：
+
+* 商品新增
+* 商品修改
+* 商品删除
+* 商品查询
+
+---
+
+### 入库管理
+
+支持：
+
+* 采购入库
+* 入库记录查询
+
+---
+
+### 出库管理
+
+支持：
+
+* 销售出库
+* 出库记录查询
+
+---
+
+### 库存盘点
+
+支持：
+
+* 盘点任务创建
+* 实盘数量录入
+* 差异统计
+
+---
+
+### 盘点差异过账
+
+支持：
+
+* 盘盈过账
+* 盘亏过账
+* 自动生成库存调整记录
+
+---
+
+## 网络协议
+
+### 登录请求
+
+```protobuf
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+```
+
+### 登录响应
+
+```protobuf
+message LoginResponse {
+    bool success = 1;
+    string token = 2;
+    string message = 3;
+}
+```
+
+### 安全消息
+
+```protobuf
+message SecureMessage {
+    bytes iv = 1;
+    bytes tag = 2;
+    bytes cipher = 3;
+}
+```
+
+---
+
+## 安全设计
+
+### MessageFramer
+
+解决 TCP：
+
+* 粘包
+* 拆包
+
+数据格式：
 
 ```text
-===== Login =====
-Username:
-Password:
++------------+
+| Length(4B) |
++------------+
+| Payload    |
++------------+
 ```
 
 ---
 
-## 主菜单
+### AES-256-GCM
 
-```text
-===== Warehouse System =====
+实现：
 
-1. Add Product
-2. Show Products
-3. Find Product
-4. Delete Product
-5. Update Product
-6. Stock In
-7. Stock Out
-8. Save Data
-9. Statistics
-10. Sort By Price
-11. Sort By Quantity
-12. Search By Name
-0. Exit
-```
+* 数据加密
+* 数据完整性校验
+* 防止中间人篡改
+
+包含：
+
+* IV
+* CipherText
+* Authentication Tag
 
 ---
 
-# 数据库设计
+## 构建项目
 
-## products 表
-
-```sql
-CREATE TABLE products (
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    quantity INTEGER,
-    price REAL
-);
-```
-
----
-
-# 默认用户
-
-## 管理员
-
-```text
-Username: admin
-Password: 123456
-```
-
----
-
-## 普通员工
-
-```text
-Username: staff
-Password: 111111
-```
-
----
-
-# 编译运行
-
-## 安装依赖
-
-Ubuntu/Debian：
+### 安装依赖
 
 ```bash
 sudo apt update
 
-sudo apt install cmake
-
-sudo apt install sqlite3
-
-sudo apt install libsqlite3-dev
+sudo apt install \
+build-essential \
+cmake \
+libsqlite3-dev \
+protobuf-compiler \
+libprotobuf-dev \
+libssl-dev
 ```
 
 ---
 
-# 编译项目
+### 编译
 
 ```bash
 mkdir build
@@ -241,121 +285,93 @@ cd build
 
 cmake ..
 
-make
+make -j$(nproc)
 ```
 
 ---
 
-# 运行项目
+## 运行服务端
 
 ```bash
-./warehouse
+./server
 ```
 
----
-
-# GitHub
-
-## 克隆项目
-
-```bash
-git clone https://github.com/你的用户名/warehouse-management-system.git
-```
-
----
-
-# 项目亮点
-
-## 面向对象设计
-
-项目采用 OOP 思想进行开发：
-
-- Product 类
-- Warehouse 类
-- User 类
-- Logger 类
-- Database 类
-
-实现了高内聚、低耦合的软件结构。
-
----
-
-## 工程化开发
-
-项目采用：
-
-- 多文件结构
-- CMake构建
-- Git版本管理
-- GitHub托管
-
-符合 Linux C++ 工程开发规范。
-
----
-
-## 数据持久化
-
-使用 SQLite 数据库实现：
-
-- 商品数据存储
-- 数据自动加载
-- SQL查询
-
-提升了系统可扩展性。
-
----
-
-## 输入安全与异常处理
-
-系统实现：
-
-- 输入校验
-- 非法输入检测
-- try-catch异常处理
-
-提升了程序健壮性。
-
----
-
-# 已实现功能
-
-- [x] 用户登录系统
-- [x] 权限控制
-- [x] 商品管理
-- [x] 库存管理
-- [x] 数据统计
-- [x] 排序与搜索
-- [x] 日志系统
-- [x] SQLite数据库
-- [x] CMake工程化
-- [x] GitHub版本管理
-
----
-
-# 后续计划
-
-- Qt 图形界面
-- Socket 网络版
-- 多线程库存管理
-- MySQL数据库
-- Web后台系统
-- REST API
-- Docker部署
-
----
-
-# 开发环境
+输出：
 
 ```text
-OS      : Ubuntu Linux
-Compiler: g++
-CMake   : 3.28.3
-SQLite  : 3.45.1
-Language: C++17
+Multi-thread Server started...
 ```
 
 ---
 
-# License
+## 运行客户端
+
+```bash
+./client
+```
+
+输出：
+
+```text
+success = 1
+token = admin_xxxxx
+message = login success
+```
+
+---
+
+## 测试
+
+### Protobuf测试
+
+```bash
+./protobuf_test
+```
+
+### AES-GCM测试
+
+```bash
+./crypto_test
+```
+
+---
+
+## 开发路线
+
+### 已完成
+
+* [x] CMake项目搭建
+* [x] SQLite集成
+* [x] Token认证
+* [x] 多线程服务器
+* [x] Protobuf通信
+* [x] MessageFramer封包
+* [x] AES-256-GCM加密
+
+### 开发中
+
+* [ ] RSA密钥交换
+* [ ] SecureSession
+* [ ] 库存盘点
+* [ ] 差异过账
+* [ ] API接口测试
+
+### 计划中
+
+* [ ] REST API
+* [ ] Docker部署
+* [ ] Web管理后台
+* [ ] Redis缓存
+* [ ] MySQL支持
+
+---
+
+## License
 
 MIT License
+
+---
+
+## Author
+
+Developed with C++17 on Linux.
