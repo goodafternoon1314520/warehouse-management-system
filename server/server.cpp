@@ -13,6 +13,7 @@
 #include "../include/MessageFramer.h"
 #include "../include/Session.h"
 #include "../include/RSAManager.h"
+#include "../include/SecureChannel.h"
 
 TokenManager tokenManager;
 
@@ -66,9 +67,18 @@ void handleClient(int clientSocket) {
         return;
     }
 
+    Session& m_session = sessions[clientSocket];
+    std::string plaintext;
+
+    if (!SecureChannel::decryptMessage(loginRequestData, m_session.aesKey, plaintext)) {
+        std::cout << "decrypt failed\n";
+        close(clientSocket);
+        return;
+    }
+
     warehouse::LoginRequest request;
 
-    if (!request.ParseFromString(loginRequestData)) {
+    if (!request.ParseFromString(plaintext)) {
         std::cout << "Parse protobuf failed\n";
         close(clientSocket);
         return;
@@ -100,7 +110,11 @@ void handleClient(int clientSocket) {
         return;
     }
 
-    auto packet = MessageFramer::pack(responseData);
+    // 加密
+    std::string secureResponse;
+    SecureChannel::encryptMessage(responseData, session.aesKey, secureResponse);
+
+    auto packet = MessageFramer::pack(secureResponse);
     if (!MessageFramer::sendAll(clientSocket, packet.data(), packet.size()))
         std::cout << "send failed\n";
 

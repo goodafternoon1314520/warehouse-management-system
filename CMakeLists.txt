@@ -50,6 +50,7 @@ set(COMMON_SRCS
         src/RSAUtil.cpp
         src/RSAManager.cpp
         src/MessageFramer.cpp
+        src/SecureChannel.cpp
 )
 
 # ==========================================
@@ -83,6 +84,7 @@ add_executable(
         src/RSAUtil.cpp
         src/RSAManager.cpp
         src/MessageFramer.cpp
+        src/SecureChannel.cpp
 )
 
 target_link_libraries(

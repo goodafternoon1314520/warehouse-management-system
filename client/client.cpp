@@ -6,6 +6,7 @@
 #include "../include/Crypto.h"
 #include "../include/MessageFramer.h"
 #include "../include/RSAManager.h"
+#include "../include/SecureChannel.h"
 
 int main() {
     int sock = 0;
@@ -79,7 +80,11 @@ int main() {
         return -1;
     }
 
-    auto loginPacket = MessageFramer::pack(loginData);
+    std::string secureData;
+
+    SecureChannel::encryptMessage(loginData, aesKey.key, secureData);
+
+    auto loginPacket = MessageFramer::pack(secureData);
     if (!MessageFramer::sendAll(sock, loginPacket.data(), loginPacket.size())) {
         std::cout << "Send login failed\n";
         close(sock);
@@ -93,8 +98,12 @@ int main() {
         return -1;
     }
 
+    // 解密
+    std::string plaintext;
+    SecureChannel::decryptMessage(loginRespData, aesKey.key, plaintext);
+
     warehouse::LoginResponse loginResp;
-    if (!loginResp.ParseFromString(loginRespData)) {
+    if (!loginResp.ParseFromString(plaintext)) {
         std::cout << "Parse login response failed\n";
         close(sock);
         return -1;
