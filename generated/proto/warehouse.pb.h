@@ -45,16 +45,28 @@ struct TableStruct_proto_2fwarehouse_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_proto_2fwarehouse_2eproto;
 namespace warehouse {
+class HandshakeRequest;
+struct HandshakeRequestDefaultTypeInternal;
+extern HandshakeRequestDefaultTypeInternal _HandshakeRequest_default_instance_;
+class HandshakeResponse;
+struct HandshakeResponseDefaultTypeInternal;
+extern HandshakeResponseDefaultTypeInternal _HandshakeResponse_default_instance_;
 class LoginRequest;
 struct LoginRequestDefaultTypeInternal;
 extern LoginRequestDefaultTypeInternal _LoginRequest_default_instance_;
 class LoginResponse;
 struct LoginResponseDefaultTypeInternal;
 extern LoginResponseDefaultTypeInternal _LoginResponse_default_instance_;
+class SecureMessage;
+struct SecureMessageDefaultTypeInternal;
+extern SecureMessageDefaultTypeInternal _SecureMessage_default_instance_;
 }  // namespace warehouse
 PROTOBUF_NAMESPACE_OPEN
+template<> ::warehouse::HandshakeRequest* Arena::CreateMaybeMessage<::warehouse::HandshakeRequest>(Arena*);
+template<> ::warehouse::HandshakeResponse* Arena::CreateMaybeMessage<::warehouse::HandshakeResponse>(Arena*);
 template<> ::warehouse::LoginRequest* Arena::CreateMaybeMessage<::warehouse::LoginRequest>(Arena*);
 template<> ::warehouse::LoginResponse* Arena::CreateMaybeMessage<::warehouse::LoginResponse>(Arena*);
+template<> ::warehouse::SecureMessage* Arena::CreateMaybeMessage<::warehouse::SecureMessage>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace warehouse {
 
@@ -407,6 +419,524 @@ class LoginResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_proto_2fwarehouse_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SecureMessage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.SecureMessage) */ {
+ public:
+  inline SecureMessage() : SecureMessage(nullptr) {}
+  ~SecureMessage() override;
+  explicit PROTOBUF_CONSTEXPR SecureMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SecureMessage(const SecureMessage& from);
+  SecureMessage(SecureMessage&& from) noexcept
+    : SecureMessage() {
+    *this = ::std::move(from);
+  }
+
+  inline SecureMessage& operator=(const SecureMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SecureMessage& operator=(SecureMessage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SecureMessage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SecureMessage* internal_default_instance() {
+    return reinterpret_cast<const SecureMessage*>(
+               &_SecureMessage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(SecureMessage& a, SecureMessage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SecureMessage* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SecureMessage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SecureMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SecureMessage>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SecureMessage& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SecureMessage& from) {
+    SecureMessage::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SecureMessage* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.SecureMessage";
+  }
+  protected:
+  explicit SecureMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIvFieldNumber = 1,
+    kTagFieldNumber = 2,
+    kCipherFieldNumber = 3,
+  };
+  // bytes iv = 1;
+  void clear_iv();
+  const std::string& iv() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_iv(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_iv();
+  PROTOBUF_NODISCARD std::string* release_iv();
+  void set_allocated_iv(std::string* iv);
+  private:
+  const std::string& _internal_iv() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_iv(const std::string& value);
+  std::string* _internal_mutable_iv();
+  public:
+
+  // bytes tag = 2;
+  void clear_tag();
+  const std::string& tag() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_tag(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_tag();
+  PROTOBUF_NODISCARD std::string* release_tag();
+  void set_allocated_tag(std::string* tag);
+  private:
+  const std::string& _internal_tag() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tag(const std::string& value);
+  std::string* _internal_mutable_tag();
+  public:
+
+  // bytes cipher = 3;
+  void clear_cipher();
+  const std::string& cipher() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_cipher(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_cipher();
+  PROTOBUF_NODISCARD std::string* release_cipher();
+  void set_allocated_cipher(std::string* cipher);
+  private:
+  const std::string& _internal_cipher() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_cipher(const std::string& value);
+  std::string* _internal_mutable_cipher();
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.SecureMessage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr iv_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tag_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cipher_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class HandshakeRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.HandshakeRequest) */ {
+ public:
+  inline HandshakeRequest() : HandshakeRequest(nullptr) {}
+  ~HandshakeRequest() override;
+  explicit PROTOBUF_CONSTEXPR HandshakeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  HandshakeRequest(const HandshakeRequest& from);
+  HandshakeRequest(HandshakeRequest&& from) noexcept
+    : HandshakeRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline HandshakeRequest& operator=(const HandshakeRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline HandshakeRequest& operator=(HandshakeRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const HandshakeRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const HandshakeRequest* internal_default_instance() {
+    return reinterpret_cast<const HandshakeRequest*>(
+               &_HandshakeRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(HandshakeRequest& a, HandshakeRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(HandshakeRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(HandshakeRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  HandshakeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<HandshakeRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const HandshakeRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const HandshakeRequest& from) {
+    HandshakeRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(HandshakeRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.HandshakeRequest";
+  }
+  protected:
+  explicit HandshakeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEncryptedAesKeyFieldNumber = 1,
+    kEncryptedIvFieldNumber = 2,
+  };
+  // bytes encrypted_aes_key = 1;
+  void clear_encrypted_aes_key();
+  const std::string& encrypted_aes_key() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_encrypted_aes_key(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_encrypted_aes_key();
+  PROTOBUF_NODISCARD std::string* release_encrypted_aes_key();
+  void set_allocated_encrypted_aes_key(std::string* encrypted_aes_key);
+  private:
+  const std::string& _internal_encrypted_aes_key() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_encrypted_aes_key(const std::string& value);
+  std::string* _internal_mutable_encrypted_aes_key();
+  public:
+
+  // bytes encrypted_iv = 2;
+  void clear_encrypted_iv();
+  const std::string& encrypted_iv() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_encrypted_iv(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_encrypted_iv();
+  PROTOBUF_NODISCARD std::string* release_encrypted_iv();
+  void set_allocated_encrypted_iv(std::string* encrypted_iv);
+  private:
+  const std::string& _internal_encrypted_iv() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_encrypted_iv(const std::string& value);
+  std::string* _internal_mutable_encrypted_iv();
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.HandshakeRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encrypted_aes_key_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encrypted_iv_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class HandshakeResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.HandshakeResponse) */ {
+ public:
+  inline HandshakeResponse() : HandshakeResponse(nullptr) {}
+  ~HandshakeResponse() override;
+  explicit PROTOBUF_CONSTEXPR HandshakeResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  HandshakeResponse(const HandshakeResponse& from);
+  HandshakeResponse(HandshakeResponse&& from) noexcept
+    : HandshakeResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline HandshakeResponse& operator=(const HandshakeResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline HandshakeResponse& operator=(HandshakeResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const HandshakeResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const HandshakeResponse* internal_default_instance() {
+    return reinterpret_cast<const HandshakeResponse*>(
+               &_HandshakeResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(HandshakeResponse& a, HandshakeResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(HandshakeResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(HandshakeResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  HandshakeResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<HandshakeResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const HandshakeResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const HandshakeResponse& from) {
+    HandshakeResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(HandshakeResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.HandshakeResponse";
+  }
+  protected:
+  explicit HandshakeResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string message = 2;
+  void clear_message();
+  const std::string& message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_message();
+  PROTOBUF_NODISCARD std::string* release_message();
+  void set_allocated_message(std::string* message);
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
+  std::string* _internal_mutable_message();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.HandshakeResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
 // ===================================================================
 
 
@@ -642,9 +1172,347 @@ inline void LoginResponse::set_allocated_message(std::string* message) {
   // @@protoc_insertion_point(field_set_allocated:warehouse.LoginResponse.message)
 }
 
+// -------------------------------------------------------------------
+
+// SecureMessage
+
+// bytes iv = 1;
+inline void SecureMessage::clear_iv() {
+  _impl_.iv_.ClearToEmpty();
+}
+inline const std::string& SecureMessage::iv() const {
+  // @@protoc_insertion_point(field_get:warehouse.SecureMessage.iv)
+  return _internal_iv();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SecureMessage::set_iv(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.iv_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.SecureMessage.iv)
+}
+inline std::string* SecureMessage::mutable_iv() {
+  std::string* _s = _internal_mutable_iv();
+  // @@protoc_insertion_point(field_mutable:warehouse.SecureMessage.iv)
+  return _s;
+}
+inline const std::string& SecureMessage::_internal_iv() const {
+  return _impl_.iv_.Get();
+}
+inline void SecureMessage::_internal_set_iv(const std::string& value) {
+  
+  _impl_.iv_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SecureMessage::_internal_mutable_iv() {
+  
+  return _impl_.iv_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SecureMessage::release_iv() {
+  // @@protoc_insertion_point(field_release:warehouse.SecureMessage.iv)
+  return _impl_.iv_.Release();
+}
+inline void SecureMessage::set_allocated_iv(std::string* iv) {
+  if (iv != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.iv_.SetAllocated(iv, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.iv_.IsDefault()) {
+    _impl_.iv_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.SecureMessage.iv)
+}
+
+// bytes tag = 2;
+inline void SecureMessage::clear_tag() {
+  _impl_.tag_.ClearToEmpty();
+}
+inline const std::string& SecureMessage::tag() const {
+  // @@protoc_insertion_point(field_get:warehouse.SecureMessage.tag)
+  return _internal_tag();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SecureMessage::set_tag(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.tag_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.SecureMessage.tag)
+}
+inline std::string* SecureMessage::mutable_tag() {
+  std::string* _s = _internal_mutable_tag();
+  // @@protoc_insertion_point(field_mutable:warehouse.SecureMessage.tag)
+  return _s;
+}
+inline const std::string& SecureMessage::_internal_tag() const {
+  return _impl_.tag_.Get();
+}
+inline void SecureMessage::_internal_set_tag(const std::string& value) {
+  
+  _impl_.tag_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SecureMessage::_internal_mutable_tag() {
+  
+  return _impl_.tag_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SecureMessage::release_tag() {
+  // @@protoc_insertion_point(field_release:warehouse.SecureMessage.tag)
+  return _impl_.tag_.Release();
+}
+inline void SecureMessage::set_allocated_tag(std::string* tag) {
+  if (tag != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.tag_.SetAllocated(tag, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.tag_.IsDefault()) {
+    _impl_.tag_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.SecureMessage.tag)
+}
+
+// bytes cipher = 3;
+inline void SecureMessage::clear_cipher() {
+  _impl_.cipher_.ClearToEmpty();
+}
+inline const std::string& SecureMessage::cipher() const {
+  // @@protoc_insertion_point(field_get:warehouse.SecureMessage.cipher)
+  return _internal_cipher();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SecureMessage::set_cipher(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.cipher_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.SecureMessage.cipher)
+}
+inline std::string* SecureMessage::mutable_cipher() {
+  std::string* _s = _internal_mutable_cipher();
+  // @@protoc_insertion_point(field_mutable:warehouse.SecureMessage.cipher)
+  return _s;
+}
+inline const std::string& SecureMessage::_internal_cipher() const {
+  return _impl_.cipher_.Get();
+}
+inline void SecureMessage::_internal_set_cipher(const std::string& value) {
+  
+  _impl_.cipher_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SecureMessage::_internal_mutable_cipher() {
+  
+  return _impl_.cipher_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SecureMessage::release_cipher() {
+  // @@protoc_insertion_point(field_release:warehouse.SecureMessage.cipher)
+  return _impl_.cipher_.Release();
+}
+inline void SecureMessage::set_allocated_cipher(std::string* cipher) {
+  if (cipher != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.cipher_.SetAllocated(cipher, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.cipher_.IsDefault()) {
+    _impl_.cipher_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.SecureMessage.cipher)
+}
+
+// -------------------------------------------------------------------
+
+// HandshakeRequest
+
+// bytes encrypted_aes_key = 1;
+inline void HandshakeRequest::clear_encrypted_aes_key() {
+  _impl_.encrypted_aes_key_.ClearToEmpty();
+}
+inline const std::string& HandshakeRequest::encrypted_aes_key() const {
+  // @@protoc_insertion_point(field_get:warehouse.HandshakeRequest.encrypted_aes_key)
+  return _internal_encrypted_aes_key();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void HandshakeRequest::set_encrypted_aes_key(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.encrypted_aes_key_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.HandshakeRequest.encrypted_aes_key)
+}
+inline std::string* HandshakeRequest::mutable_encrypted_aes_key() {
+  std::string* _s = _internal_mutable_encrypted_aes_key();
+  // @@protoc_insertion_point(field_mutable:warehouse.HandshakeRequest.encrypted_aes_key)
+  return _s;
+}
+inline const std::string& HandshakeRequest::_internal_encrypted_aes_key() const {
+  return _impl_.encrypted_aes_key_.Get();
+}
+inline void HandshakeRequest::_internal_set_encrypted_aes_key(const std::string& value) {
+  
+  _impl_.encrypted_aes_key_.Set(value, GetArenaForAllocation());
+}
+inline std::string* HandshakeRequest::_internal_mutable_encrypted_aes_key() {
+  
+  return _impl_.encrypted_aes_key_.Mutable(GetArenaForAllocation());
+}
+inline std::string* HandshakeRequest::release_encrypted_aes_key() {
+  // @@protoc_insertion_point(field_release:warehouse.HandshakeRequest.encrypted_aes_key)
+  return _impl_.encrypted_aes_key_.Release();
+}
+inline void HandshakeRequest::set_allocated_encrypted_aes_key(std::string* encrypted_aes_key) {
+  if (encrypted_aes_key != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.encrypted_aes_key_.SetAllocated(encrypted_aes_key, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.encrypted_aes_key_.IsDefault()) {
+    _impl_.encrypted_aes_key_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.HandshakeRequest.encrypted_aes_key)
+}
+
+// bytes encrypted_iv = 2;
+inline void HandshakeRequest::clear_encrypted_iv() {
+  _impl_.encrypted_iv_.ClearToEmpty();
+}
+inline const std::string& HandshakeRequest::encrypted_iv() const {
+  // @@protoc_insertion_point(field_get:warehouse.HandshakeRequest.encrypted_iv)
+  return _internal_encrypted_iv();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void HandshakeRequest::set_encrypted_iv(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.encrypted_iv_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.HandshakeRequest.encrypted_iv)
+}
+inline std::string* HandshakeRequest::mutable_encrypted_iv() {
+  std::string* _s = _internal_mutable_encrypted_iv();
+  // @@protoc_insertion_point(field_mutable:warehouse.HandshakeRequest.encrypted_iv)
+  return _s;
+}
+inline const std::string& HandshakeRequest::_internal_encrypted_iv() const {
+  return _impl_.encrypted_iv_.Get();
+}
+inline void HandshakeRequest::_internal_set_encrypted_iv(const std::string& value) {
+  
+  _impl_.encrypted_iv_.Set(value, GetArenaForAllocation());
+}
+inline std::string* HandshakeRequest::_internal_mutable_encrypted_iv() {
+  
+  return _impl_.encrypted_iv_.Mutable(GetArenaForAllocation());
+}
+inline std::string* HandshakeRequest::release_encrypted_iv() {
+  // @@protoc_insertion_point(field_release:warehouse.HandshakeRequest.encrypted_iv)
+  return _impl_.encrypted_iv_.Release();
+}
+inline void HandshakeRequest::set_allocated_encrypted_iv(std::string* encrypted_iv) {
+  if (encrypted_iv != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.encrypted_iv_.SetAllocated(encrypted_iv, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.encrypted_iv_.IsDefault()) {
+    _impl_.encrypted_iv_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.HandshakeRequest.encrypted_iv)
+}
+
+// -------------------------------------------------------------------
+
+// HandshakeResponse
+
+// bool success = 1;
+inline void HandshakeResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool HandshakeResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool HandshakeResponse::success() const {
+  // @@protoc_insertion_point(field_get:warehouse.HandshakeResponse.success)
+  return _internal_success();
+}
+inline void HandshakeResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void HandshakeResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:warehouse.HandshakeResponse.success)
+}
+
+// string message = 2;
+inline void HandshakeResponse::clear_message() {
+  _impl_.message_.ClearToEmpty();
+}
+inline const std::string& HandshakeResponse::message() const {
+  // @@protoc_insertion_point(field_get:warehouse.HandshakeResponse.message)
+  return _internal_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void HandshakeResponse::set_message(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.HandshakeResponse.message)
+}
+inline std::string* HandshakeResponse::mutable_message() {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:warehouse.HandshakeResponse.message)
+  return _s;
+}
+inline const std::string& HandshakeResponse::_internal_message() const {
+  return _impl_.message_.Get();
+}
+inline void HandshakeResponse::_internal_set_message(const std::string& value) {
+  
+  _impl_.message_.Set(value, GetArenaForAllocation());
+}
+inline std::string* HandshakeResponse::_internal_mutable_message() {
+  
+  return _impl_.message_.Mutable(GetArenaForAllocation());
+}
+inline std::string* HandshakeResponse::release_message() {
+  // @@protoc_insertion_point(field_release:warehouse.HandshakeResponse.message)
+  return _impl_.message_.Release();
+}
+inline void HandshakeResponse::set_allocated_message(std::string* message) {
+  if (message != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.message_.IsDefault()) {
+    _impl_.message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.HandshakeResponse.message)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

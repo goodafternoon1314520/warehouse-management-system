@@ -18,3 +18,15 @@ message SecureMessage {
     bytes tag = 2;
     bytes cipher = 3;
 }
+
+// 客户端发送AES Key + IV (RSA加密)
+message HandshakeRequest {
+    bytes encrypted_aes_key = 1;
+    bytes encrypted_iv = 2;
+}
+
+// 服务器响应
+message HandshakeResponse {
+    bool success = 1;
+    string message = 2;
+}

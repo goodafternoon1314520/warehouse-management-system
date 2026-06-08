@@ -5,6 +5,7 @@
 #include "../generated/proto/warehouse.pb.h"
 #include "../include/Crypto.h"
 #include "../include/MessageFramer.h"
+#include "../include/RSAManager.h"
 
 int main() {
     int sock = 0;
@@ -23,12 +24,17 @@ int main() {
         return -1;
     };
 
-    // AESContext aesKey = Crypto::generateAESKey();
+    AESContext aesKey = Crypto::generateAESKey();
+
+    // RSA 加密 AES Key/IV
+    std::string encKey = RSAManager::encrypt(std::string(aesKey.key.begin(), aesKey.key.end()), "../certs/public.pem");
+
+    std::string encIV = RSAManager::encrypt(std::string(aesKey.iv.begin(), aesKey.iv.end()), "../certs/public.pem");
 
     // 创建请求
-    warehouse::LoginRequest req;
-    req.set_username("admin");
-    req.set_password("123456");
+    warehouse::HandshakeRequest req;
+    req.set_encrypted_aes_key(encKey);
+    req.set_encrypted_iv(encIV);
 
     // 序列化
     std::string message;
@@ -37,12 +43,11 @@ int main() {
         return -1;
     };
 
-    // std::string encryptedData = Crypto::encryptAES(message, aesKey.key, aesKey.iv);
-
     // 发送
     auto packet = MessageFramer::pack(message);
     if (!MessageFramer::sendAll(sock, packet.data(), packet.size())){
         std::cout << "send failed\n";
+        close(sock);
         return -1;
     }
 
@@ -52,14 +57,53 @@ int main() {
         return -1;
     }
 
-    warehouse::LoginResponse response;
+    warehouse::HandshakeResponse response;
     if (!response.ParseFromString(responseData)) {
-        std::cout << "Parse response error!\n";
+        std::cout << "Parse handshake response error!\n";
+        close(sock);
         return -1;
     };
-    std::cout << "success = " <<response.success() << std::endl;
-    std::cout << "token = " << response.token() << std::endl;
+    std::cout << "Handshake Success = " <<response.success() << std::endl;
     std::cout << "message = " << response.message() << std::endl;
+
+    warehouse::LoginRequest loginReq;
+
+    loginReq.set_username("admin");
+    loginReq.set_password("123456");
+
+    std::string loginData;
+
+    if (!loginReq.SerializeToString(&loginData)) {
+        std::cout << "Serialize login failed\n";
+        close(sock);
+        return -1;
+    }
+
+    auto loginPacket = MessageFramer::pack(loginData);
+    if (!MessageFramer::sendAll(sock, loginPacket.data(), loginPacket.size())) {
+        std::cout << "Send login failed\n";
+        close(sock);
+        return -1;
+    }
+
+    std::string loginRespData;
+    if (!MessageFramer::recvMessage(sock, loginRespData)) {
+        std::cout << "Recv login response failed\n";
+        close(sock);
+        return -1;
+    }
+
+    warehouse::LoginResponse loginResp;
+    if (!loginResp.ParseFromString(loginRespData)) {
+        std::cout << "Parse login response failed\n";
+        close(sock);
+        return -1;
+    }
+
+    std::cout << "\n===== Login Result =====\n";
+    std::cout << "Success: " << loginResp.success() << std::endl;
+    std::cout << "Token: " << loginResp.token() << std::endl;
+    std::cout << "Message: " << loginResp.message() << std::endl;
 
     close(sock);
 

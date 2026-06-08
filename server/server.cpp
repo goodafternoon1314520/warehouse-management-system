@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <thread>
+#include <unordered_map>
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -10,15 +11,56 @@
 #include "../include/ThreadPool.h"
 #include "../generated/proto/warehouse.pb.h"
 #include "../include/MessageFramer.h"
+#include "../include/Session.h"
+#include "../include/RSAManager.h"
 
 TokenManager tokenManager;
 
+std::unordered_map<int , Session> sessions;
+
 void handleClient(int clientSocket) {
-    std::cout << "handleCLient start\n";
+    warehouse::HandshakeRequest req;
+    std::string data;
+    if (!MessageFramer::recvMessage(clientSocket, data)) {
+        std::cout << "recv handshake failed\n";
+        close(clientSocket);
+        return;
+    }
 
-    std::string requestData;
+    if (!req.ParseFromString(data)) {
+        std::cout << "Parse handshake failed\n";
+        close(clientSocket);
+        return;
+    }
 
-    if (!MessageFramer::recvMessage(clientSocket, requestData)) {
+    // RSA 解密 AES key 和 IV
+    std::string aesKeyStr = RSAManager::decrypt(req.encrypted_aes_key(), "../certs/private.pem");
+    std::string ivStr = RSAManager::decrypt(req.encrypted_iv(), "../certs/private.pem");
+
+    // 保存 Session
+    Session session;
+    session.socket = clientSocket;
+    session.aesKey.assign(aesKeyStr.begin(), aesKeyStr.end());
+    session.iv.assign(ivStr.begin(), ivStr.end());
+
+    sessions[clientSocket] = session;
+
+    // 回复客户端
+    warehouse::HandshakeResponse resp;
+    resp.set_success(true);
+    resp.set_message("Handshake OK");
+
+    std::string handshakeResponseData;
+    resp.SerializeToString(&handshakeResponseData);
+    auto res = MessageFramer::pack(handshakeResponseData);
+    if (!MessageFramer::sendAll(clientSocket, res.data(), res.size()))
+        std::cout << "send failed\n";
+
+    std::cout << "handleClient start\n";
+
+    std::string loginRequestData;
+
+    if (!MessageFramer::recvMessage(clientSocket, loginRequestData)) {
         std::cout << "recv message failed\n";
         close(clientSocket);
         return;
@@ -26,7 +68,7 @@ void handleClient(int clientSocket) {
 
     warehouse::LoginRequest request;
 
-    if (!request.ParseFromString(requestData)) {
+    if (!request.ParseFromString(loginRequestData)) {
         std::cout << "Parse protobuf failed\n";
         close(clientSocket);
         return;
