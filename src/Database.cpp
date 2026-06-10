@@ -52,3 +52,10 @@ bool Database::query(const std::string& sql, int (*callback)(void*, int, char**,
     return true;
 }
 
+sqlite3* Database::getConnection() {
+    sqlite3* db = nullptr;
+
+    sqlite3_open("../data/warehouse.db", &db);
+
+    return db;
+}

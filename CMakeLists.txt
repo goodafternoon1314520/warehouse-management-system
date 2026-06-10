@@ -170,6 +170,38 @@ target_link_libraries(
         OpenSSL::Crypto
 )
 
+# ============================================
+
+# ============================================
+
+add_executable(
+        inventory_test
+        tests/inventory_test.cpp
+        src/InventoryManager.cpp
+        src/Database.cpp
+        src/TokenManager.cpp
+)
+
+target_link_libraries(
+        inventory_test
+        PRIVATE
+        SQLite::SQLite3
+)
+
+
+add_executable(
+        inventory_crud_test
+        tests/inventory_crud_test.cpp
+        src/InventoryManager.cpp
+        src/Database.cpp
+)
+
+target_link_libraries(
+        inventory_crud_test
+        PRIVATE
+        SQLite::SQLite3
+)
+
 # ==========================================
 # 输出信息
 # ==========================================

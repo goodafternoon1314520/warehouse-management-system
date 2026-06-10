@@ -24,6 +24,8 @@ public:
 
     // 查询SQL
     bool query(const std::string& sql, int (*callback)(void*, int, char**, char**));
+
+    static sqlite3* getConnection();
 };
 
 #endif
