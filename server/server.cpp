@@ -76,49 +76,72 @@ void handleClient(int clientSocket) {
         return;
     }
 
-    warehouse::LoginRequest request;
-
-    if (!request.ParseFromString(plaintext)) {
-        std::cout << "Parse protobuf failed\n";
-        close(clientSocket);
+    warehouse::RequestEnvelope envelope;
+    if (!envelope.ParseFromString(plaintext)) {
+        std::cout << "parse envelope failed\n";
         return;
     }
+    std::cout << "type = " << envelope.type() << std::endl;
 
-    std::string username = request.username();
-    std::string password = request.password();
-    std::cout << username << std::endl << password << std::endl;
+    if (envelope.type() == warehouse::LOGIN_REQUEST) {
+        warehouse::LoginRequest request;
 
-    bool success = username == "admin" && password == "123456";
+        if (!request.ParseFromString(envelope.payload())) {
+            std::cout << "Parse protobuf failed\n";
+            close(clientSocket);
+            return;
+        }
 
-    warehouse::LoginResponse response;
+        std::string username = request.username();
+        std::string password = request.password();
+        std::cout << username << std::endl << password << std::endl;
 
-    if (success) {
-        response.set_success(true);
-        response.set_token(tokenManager.generateToken(username));
-        response.set_message("login success");
-    }
-    else {
-        response.set_success(false);
-        response.set_message("login failed");
-    }
+        bool success = username == "admin" && password == "123456";
 
-    std::string responseData;
+        warehouse::LoginResponse response;
 
-    if (!response.SerializeToString(&responseData)) {
-        std::cout << "Serialize response failed\n";
+        if (success) {
+            response.set_success(true);
+            response.set_token(tokenManager.generateToken(username));
+            response.set_message("login success");
+        }
+        else {
+            response.set_success(false);
+            response.set_message("login failed");
+        }
+
+        // 序列化LoginResponse
+        std::string loginResponseData;
+        if (!response.SerializeToString(&loginResponseData)) {
+            std::cout << "parse response failed\n";
+            close(clientSocket);
+            return;
+        }
+
+        // 包装ResponseEnvelope
+        warehouse::ResponseEnvelope envelopeResp;
+        envelopeResp.set_type(warehouse::LOGIN_REQUEST);
+        envelopeResp.set_payload(loginResponseData);
+
+        // 再序列化
+        std::string responseData;
+
+        if (!envelopeResp.SerializeToString(&responseData)) {
+            std::cout << "Serialize envelopeResp failed\n";
+            close(clientSocket);
+            return;
+        }
+
+        // 加密
+        std::string secureResponse;
+        SecureChannel::encryptMessage(responseData, m_session.aesKey, secureResponse);
+
+        auto packet = MessageFramer::pack(secureResponse);
+        if (!MessageFramer::sendAll(clientSocket, packet.data(), packet.size()))
+            std::cout << "send failed\n";
+
         close(clientSocket);
-        return;
     }
-
-    // 加密
-    std::string secureResponse;
-    SecureChannel::encryptMessage(responseData, session.aesKey, secureResponse);
-
-    auto packet = MessageFramer::pack(secureResponse);
-    if (!MessageFramer::sendAll(clientSocket, packet.data(), packet.size()))
-        std::cout << "send failed\n";
-
-    close(clientSocket);
 }
 
 int main() {

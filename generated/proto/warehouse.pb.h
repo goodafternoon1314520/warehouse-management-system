@@ -23,12 +23,14 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/arenastring.h>
+#include <google/protobuf/generated_message_bases.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/metadata_lite.h>
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -51,12 +53,39 @@ extern HandshakeRequestDefaultTypeInternal _HandshakeRequest_default_instance_;
 class HandshakeResponse;
 struct HandshakeResponseDefaultTypeInternal;
 extern HandshakeResponseDefaultTypeInternal _HandshakeResponse_default_instance_;
+class InventoryAddRequest;
+struct InventoryAddRequestDefaultTypeInternal;
+extern InventoryAddRequestDefaultTypeInternal _InventoryAddRequest_default_instance_;
+class InventoryAddResponse;
+struct InventoryAddResponseDefaultTypeInternal;
+extern InventoryAddResponseDefaultTypeInternal _InventoryAddResponse_default_instance_;
+class InventoryItemProto;
+struct InventoryItemProtoDefaultTypeInternal;
+extern InventoryItemProtoDefaultTypeInternal _InventoryItemProto_default_instance_;
+class InventoryListRequest;
+struct InventoryListRequestDefaultTypeInternal;
+extern InventoryListRequestDefaultTypeInternal _InventoryListRequest_default_instance_;
+class InventoryListResponse;
+struct InventoryListResponseDefaultTypeInternal;
+extern InventoryListResponseDefaultTypeInternal _InventoryListResponse_default_instance_;
+class InventoryQueryRequest;
+struct InventoryQueryRequestDefaultTypeInternal;
+extern InventoryQueryRequestDefaultTypeInternal _InventoryQueryRequest_default_instance_;
+class InventoryQueryResponse;
+struct InventoryQueryResponseDefaultTypeInternal;
+extern InventoryQueryResponseDefaultTypeInternal _InventoryQueryResponse_default_instance_;
 class LoginRequest;
 struct LoginRequestDefaultTypeInternal;
 extern LoginRequestDefaultTypeInternal _LoginRequest_default_instance_;
 class LoginResponse;
 struct LoginResponseDefaultTypeInternal;
 extern LoginResponseDefaultTypeInternal _LoginResponse_default_instance_;
+class RequestEnvelope;
+struct RequestEnvelopeDefaultTypeInternal;
+extern RequestEnvelopeDefaultTypeInternal _RequestEnvelope_default_instance_;
+class ResponseEnvelope;
+struct ResponseEnvelopeDefaultTypeInternal;
+extern ResponseEnvelopeDefaultTypeInternal _ResponseEnvelope_default_instance_;
 class SecureMessage;
 struct SecureMessageDefaultTypeInternal;
 extern SecureMessageDefaultTypeInternal _SecureMessage_default_instance_;
@@ -64,12 +93,48 @@ extern SecureMessageDefaultTypeInternal _SecureMessage_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::warehouse::HandshakeRequest* Arena::CreateMaybeMessage<::warehouse::HandshakeRequest>(Arena*);
 template<> ::warehouse::HandshakeResponse* Arena::CreateMaybeMessage<::warehouse::HandshakeResponse>(Arena*);
+template<> ::warehouse::InventoryAddRequest* Arena::CreateMaybeMessage<::warehouse::InventoryAddRequest>(Arena*);
+template<> ::warehouse::InventoryAddResponse* Arena::CreateMaybeMessage<::warehouse::InventoryAddResponse>(Arena*);
+template<> ::warehouse::InventoryItemProto* Arena::CreateMaybeMessage<::warehouse::InventoryItemProto>(Arena*);
+template<> ::warehouse::InventoryListRequest* Arena::CreateMaybeMessage<::warehouse::InventoryListRequest>(Arena*);
+template<> ::warehouse::InventoryListResponse* Arena::CreateMaybeMessage<::warehouse::InventoryListResponse>(Arena*);
+template<> ::warehouse::InventoryQueryRequest* Arena::CreateMaybeMessage<::warehouse::InventoryQueryRequest>(Arena*);
+template<> ::warehouse::InventoryQueryResponse* Arena::CreateMaybeMessage<::warehouse::InventoryQueryResponse>(Arena*);
 template<> ::warehouse::LoginRequest* Arena::CreateMaybeMessage<::warehouse::LoginRequest>(Arena*);
 template<> ::warehouse::LoginResponse* Arena::CreateMaybeMessage<::warehouse::LoginResponse>(Arena*);
+template<> ::warehouse::RequestEnvelope* Arena::CreateMaybeMessage<::warehouse::RequestEnvelope>(Arena*);
+template<> ::warehouse::ResponseEnvelope* Arena::CreateMaybeMessage<::warehouse::ResponseEnvelope>(Arena*);
 template<> ::warehouse::SecureMessage* Arena::CreateMaybeMessage<::warehouse::SecureMessage>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace warehouse {
 
+enum MessageType : int {
+  LOGIN_REQUEST = 0,
+  INVENTORY_ADD_REQUEST = 1,
+  INVENTORY_QUERY_REQUEST = 2,
+  INVENTORY_LIST_REQUEST = 3,
+  MessageType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  MessageType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool MessageType_IsValid(int value);
+constexpr MessageType MessageType_MIN = LOGIN_REQUEST;
+constexpr MessageType MessageType_MAX = INVENTORY_LIST_REQUEST;
+constexpr int MessageType_ARRAYSIZE = MessageType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MessageType_descriptor();
+template<typename T>
+inline const std::string& MessageType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, MessageType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function MessageType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    MessageType_descriptor(), enum_t_value);
+}
+inline bool MessageType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MessageType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<MessageType>(
+    MessageType_descriptor(), name, value);
+}
 // ===================================================================
 
 class LoginRequest final :
@@ -937,6 +1002,1540 @@ class HandshakeResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_proto_2fwarehouse_2eproto;
 };
+// -------------------------------------------------------------------
+
+class InventoryItemProto final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.InventoryItemProto) */ {
+ public:
+  inline InventoryItemProto() : InventoryItemProto(nullptr) {}
+  ~InventoryItemProto() override;
+  explicit PROTOBUF_CONSTEXPR InventoryItemProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InventoryItemProto(const InventoryItemProto& from);
+  InventoryItemProto(InventoryItemProto&& from) noexcept
+    : InventoryItemProto() {
+    *this = ::std::move(from);
+  }
+
+  inline InventoryItemProto& operator=(const InventoryItemProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InventoryItemProto& operator=(InventoryItemProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InventoryItemProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InventoryItemProto* internal_default_instance() {
+    return reinterpret_cast<const InventoryItemProto*>(
+               &_InventoryItemProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(InventoryItemProto& a, InventoryItemProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InventoryItemProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InventoryItemProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InventoryItemProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InventoryItemProto>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const InventoryItemProto& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const InventoryItemProto& from) {
+    InventoryItemProto::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(InventoryItemProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.InventoryItemProto";
+  }
+  protected:
+  explicit InventoryItemProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSkuFieldNumber = 2,
+    kNameFieldNumber = 3,
+    kLocationFieldNumber = 5,
+    kIdFieldNumber = 1,
+    kQuantityFieldNumber = 4,
+  };
+  // string sku = 2;
+  void clear_sku();
+  const std::string& sku() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sku(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sku();
+  PROTOBUF_NODISCARD std::string* release_sku();
+  void set_allocated_sku(std::string* sku);
+  private:
+  const std::string& _internal_sku() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sku(const std::string& value);
+  std::string* _internal_mutable_sku();
+  public:
+
+  // string name = 3;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string location = 5;
+  void clear_location();
+  const std::string& location() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_location(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_location();
+  PROTOBUF_NODISCARD std::string* release_location();
+  void set_allocated_location(std::string* location);
+  private:
+  const std::string& _internal_location() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_location(const std::string& value);
+  std::string* _internal_mutable_location();
+  public:
+
+  // int32 id = 1;
+  void clear_id();
+  int32_t id() const;
+  void set_id(int32_t value);
+  private:
+  int32_t _internal_id() const;
+  void _internal_set_id(int32_t value);
+  public:
+
+  // int32 quantity = 4;
+  void clear_quantity();
+  int32_t quantity() const;
+  void set_quantity(int32_t value);
+  private:
+  int32_t _internal_quantity() const;
+  void _internal_set_quantity(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.InventoryItemProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sku_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr location_;
+    int32_t id_;
+    int32_t quantity_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InventoryAddRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.InventoryAddRequest) */ {
+ public:
+  inline InventoryAddRequest() : InventoryAddRequest(nullptr) {}
+  ~InventoryAddRequest() override;
+  explicit PROTOBUF_CONSTEXPR InventoryAddRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InventoryAddRequest(const InventoryAddRequest& from);
+  InventoryAddRequest(InventoryAddRequest&& from) noexcept
+    : InventoryAddRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline InventoryAddRequest& operator=(const InventoryAddRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InventoryAddRequest& operator=(InventoryAddRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InventoryAddRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InventoryAddRequest* internal_default_instance() {
+    return reinterpret_cast<const InventoryAddRequest*>(
+               &_InventoryAddRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(InventoryAddRequest& a, InventoryAddRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InventoryAddRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InventoryAddRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InventoryAddRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InventoryAddRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const InventoryAddRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const InventoryAddRequest& from) {
+    InventoryAddRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(InventoryAddRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.InventoryAddRequest";
+  }
+  protected:
+  explicit InventoryAddRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSkuFieldNumber = 1,
+    kNameFieldNumber = 2,
+    kLocationFieldNumber = 4,
+    kQuantityFieldNumber = 3,
+  };
+  // string sku = 1;
+  void clear_sku();
+  const std::string& sku() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sku(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sku();
+  PROTOBUF_NODISCARD std::string* release_sku();
+  void set_allocated_sku(std::string* sku);
+  private:
+  const std::string& _internal_sku() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sku(const std::string& value);
+  std::string* _internal_mutable_sku();
+  public:
+
+  // string name = 2;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string location = 4;
+  void clear_location();
+  const std::string& location() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_location(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_location();
+  PROTOBUF_NODISCARD std::string* release_location();
+  void set_allocated_location(std::string* location);
+  private:
+  const std::string& _internal_location() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_location(const std::string& value);
+  std::string* _internal_mutable_location();
+  public:
+
+  // int32 quantity = 3;
+  void clear_quantity();
+  int32_t quantity() const;
+  void set_quantity(int32_t value);
+  private:
+  int32_t _internal_quantity() const;
+  void _internal_set_quantity(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.InventoryAddRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sku_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr location_;
+    int32_t quantity_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InventoryAddResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.InventoryAddResponse) */ {
+ public:
+  inline InventoryAddResponse() : InventoryAddResponse(nullptr) {}
+  ~InventoryAddResponse() override;
+  explicit PROTOBUF_CONSTEXPR InventoryAddResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InventoryAddResponse(const InventoryAddResponse& from);
+  InventoryAddResponse(InventoryAddResponse&& from) noexcept
+    : InventoryAddResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline InventoryAddResponse& operator=(const InventoryAddResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InventoryAddResponse& operator=(InventoryAddResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InventoryAddResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InventoryAddResponse* internal_default_instance() {
+    return reinterpret_cast<const InventoryAddResponse*>(
+               &_InventoryAddResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(InventoryAddResponse& a, InventoryAddResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InventoryAddResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InventoryAddResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InventoryAddResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InventoryAddResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const InventoryAddResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const InventoryAddResponse& from) {
+    InventoryAddResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(InventoryAddResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.InventoryAddResponse";
+  }
+  protected:
+  explicit InventoryAddResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string message = 2;
+  void clear_message();
+  const std::string& message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_message();
+  PROTOBUF_NODISCARD std::string* release_message();
+  void set_allocated_message(std::string* message);
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
+  std::string* _internal_mutable_message();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.InventoryAddResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InventoryQueryRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.InventoryQueryRequest) */ {
+ public:
+  inline InventoryQueryRequest() : InventoryQueryRequest(nullptr) {}
+  ~InventoryQueryRequest() override;
+  explicit PROTOBUF_CONSTEXPR InventoryQueryRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InventoryQueryRequest(const InventoryQueryRequest& from);
+  InventoryQueryRequest(InventoryQueryRequest&& from) noexcept
+    : InventoryQueryRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline InventoryQueryRequest& operator=(const InventoryQueryRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InventoryQueryRequest& operator=(InventoryQueryRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InventoryQueryRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InventoryQueryRequest* internal_default_instance() {
+    return reinterpret_cast<const InventoryQueryRequest*>(
+               &_InventoryQueryRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(InventoryQueryRequest& a, InventoryQueryRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InventoryQueryRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InventoryQueryRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InventoryQueryRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InventoryQueryRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const InventoryQueryRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const InventoryQueryRequest& from) {
+    InventoryQueryRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(InventoryQueryRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.InventoryQueryRequest";
+  }
+  protected:
+  explicit InventoryQueryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSkuFieldNumber = 1,
+  };
+  // string sku = 1;
+  void clear_sku();
+  const std::string& sku() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sku(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sku();
+  PROTOBUF_NODISCARD std::string* release_sku();
+  void set_allocated_sku(std::string* sku);
+  private:
+  const std::string& _internal_sku() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sku(const std::string& value);
+  std::string* _internal_mutable_sku();
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.InventoryQueryRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sku_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InventoryQueryResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.InventoryQueryResponse) */ {
+ public:
+  inline InventoryQueryResponse() : InventoryQueryResponse(nullptr) {}
+  ~InventoryQueryResponse() override;
+  explicit PROTOBUF_CONSTEXPR InventoryQueryResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InventoryQueryResponse(const InventoryQueryResponse& from);
+  InventoryQueryResponse(InventoryQueryResponse&& from) noexcept
+    : InventoryQueryResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline InventoryQueryResponse& operator=(const InventoryQueryResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InventoryQueryResponse& operator=(InventoryQueryResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InventoryQueryResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InventoryQueryResponse* internal_default_instance() {
+    return reinterpret_cast<const InventoryQueryResponse*>(
+               &_InventoryQueryResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(InventoryQueryResponse& a, InventoryQueryResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InventoryQueryResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InventoryQueryResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InventoryQueryResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InventoryQueryResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const InventoryQueryResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const InventoryQueryResponse& from) {
+    InventoryQueryResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(InventoryQueryResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.InventoryQueryResponse";
+  }
+  protected:
+  explicit InventoryQueryResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageFieldNumber = 3,
+    kItemFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string message = 3;
+  void clear_message();
+  const std::string& message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_message();
+  PROTOBUF_NODISCARD std::string* release_message();
+  void set_allocated_message(std::string* message);
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
+  std::string* _internal_mutable_message();
+  public:
+
+  // .warehouse.InventoryItemProto item = 2;
+  bool has_item() const;
+  private:
+  bool _internal_has_item() const;
+  public:
+  void clear_item();
+  const ::warehouse::InventoryItemProto& item() const;
+  PROTOBUF_NODISCARD ::warehouse::InventoryItemProto* release_item();
+  ::warehouse::InventoryItemProto* mutable_item();
+  void set_allocated_item(::warehouse::InventoryItemProto* item);
+  private:
+  const ::warehouse::InventoryItemProto& _internal_item() const;
+  ::warehouse::InventoryItemProto* _internal_mutable_item();
+  public:
+  void unsafe_arena_set_allocated_item(
+      ::warehouse::InventoryItemProto* item);
+  ::warehouse::InventoryItemProto* unsafe_arena_release_item();
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.InventoryQueryResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    ::warehouse::InventoryItemProto* item_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InventoryListRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:warehouse.InventoryListRequest) */ {
+ public:
+  inline InventoryListRequest() : InventoryListRequest(nullptr) {}
+  explicit PROTOBUF_CONSTEXPR InventoryListRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InventoryListRequest(const InventoryListRequest& from);
+  InventoryListRequest(InventoryListRequest&& from) noexcept
+    : InventoryListRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline InventoryListRequest& operator=(const InventoryListRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InventoryListRequest& operator=(InventoryListRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InventoryListRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InventoryListRequest* internal_default_instance() {
+    return reinterpret_cast<const InventoryListRequest*>(
+               &_InventoryListRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(InventoryListRequest& a, InventoryListRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InventoryListRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InventoryListRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InventoryListRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InventoryListRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const InventoryListRequest& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const InventoryListRequest& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.InventoryListRequest";
+  }
+  protected:
+  explicit InventoryListRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:warehouse.InventoryListRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+  };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InventoryListResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.InventoryListResponse) */ {
+ public:
+  inline InventoryListResponse() : InventoryListResponse(nullptr) {}
+  ~InventoryListResponse() override;
+  explicit PROTOBUF_CONSTEXPR InventoryListResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InventoryListResponse(const InventoryListResponse& from);
+  InventoryListResponse(InventoryListResponse&& from) noexcept
+    : InventoryListResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline InventoryListResponse& operator=(const InventoryListResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InventoryListResponse& operator=(InventoryListResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InventoryListResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InventoryListResponse* internal_default_instance() {
+    return reinterpret_cast<const InventoryListResponse*>(
+               &_InventoryListResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(InventoryListResponse& a, InventoryListResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InventoryListResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InventoryListResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InventoryListResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InventoryListResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const InventoryListResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const InventoryListResponse& from) {
+    InventoryListResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(InventoryListResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.InventoryListResponse";
+  }
+  protected:
+  explicit InventoryListResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kItemsFieldNumber = 1,
+    kMessageFieldNumber = 3,
+    kSuccessFieldNumber = 2,
+  };
+  // repeated .warehouse.InventoryItemProto items = 1;
+  int items_size() const;
+  private:
+  int _internal_items_size() const;
+  public:
+  void clear_items();
+  ::warehouse::InventoryItemProto* mutable_items(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::warehouse::InventoryItemProto >*
+      mutable_items();
+  private:
+  const ::warehouse::InventoryItemProto& _internal_items(int index) const;
+  ::warehouse::InventoryItemProto* _internal_add_items();
+  public:
+  const ::warehouse::InventoryItemProto& items(int index) const;
+  ::warehouse::InventoryItemProto* add_items();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::warehouse::InventoryItemProto >&
+      items() const;
+
+  // string message = 3;
+  void clear_message();
+  const std::string& message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_message();
+  PROTOBUF_NODISCARD std::string* release_message();
+  void set_allocated_message(std::string* message);
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
+  std::string* _internal_mutable_message();
+  public:
+
+  // bool success = 2;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.InventoryListResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::warehouse::InventoryItemProto > items_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RequestEnvelope final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.RequestEnvelope) */ {
+ public:
+  inline RequestEnvelope() : RequestEnvelope(nullptr) {}
+  ~RequestEnvelope() override;
+  explicit PROTOBUF_CONSTEXPR RequestEnvelope(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RequestEnvelope(const RequestEnvelope& from);
+  RequestEnvelope(RequestEnvelope&& from) noexcept
+    : RequestEnvelope() {
+    *this = ::std::move(from);
+  }
+
+  inline RequestEnvelope& operator=(const RequestEnvelope& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RequestEnvelope& operator=(RequestEnvelope&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RequestEnvelope& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RequestEnvelope* internal_default_instance() {
+    return reinterpret_cast<const RequestEnvelope*>(
+               &_RequestEnvelope_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(RequestEnvelope& a, RequestEnvelope& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RequestEnvelope* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RequestEnvelope* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RequestEnvelope* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RequestEnvelope>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RequestEnvelope& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RequestEnvelope& from) {
+    RequestEnvelope::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RequestEnvelope* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.RequestEnvelope";
+  }
+  protected:
+  explicit RequestEnvelope(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPayloadFieldNumber = 2,
+    kTypeFieldNumber = 1,
+  };
+  // bytes payload = 2;
+  void clear_payload();
+  const std::string& payload() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_payload(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_payload();
+  PROTOBUF_NODISCARD std::string* release_payload();
+  void set_allocated_payload(std::string* payload);
+  private:
+  const std::string& _internal_payload() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_payload(const std::string& value);
+  std::string* _internal_mutable_payload();
+  public:
+
+  // .warehouse.MessageType type = 1;
+  void clear_type();
+  ::warehouse::MessageType type() const;
+  void set_type(::warehouse::MessageType value);
+  private:
+  ::warehouse::MessageType _internal_type() const;
+  void _internal_set_type(::warehouse::MessageType value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.RequestEnvelope)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr payload_;
+    int type_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ResponseEnvelope final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:warehouse.ResponseEnvelope) */ {
+ public:
+  inline ResponseEnvelope() : ResponseEnvelope(nullptr) {}
+  ~ResponseEnvelope() override;
+  explicit PROTOBUF_CONSTEXPR ResponseEnvelope(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ResponseEnvelope(const ResponseEnvelope& from);
+  ResponseEnvelope(ResponseEnvelope&& from) noexcept
+    : ResponseEnvelope() {
+    *this = ::std::move(from);
+  }
+
+  inline ResponseEnvelope& operator=(const ResponseEnvelope& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ResponseEnvelope& operator=(ResponseEnvelope&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ResponseEnvelope& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ResponseEnvelope* internal_default_instance() {
+    return reinterpret_cast<const ResponseEnvelope*>(
+               &_ResponseEnvelope_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(ResponseEnvelope& a, ResponseEnvelope& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ResponseEnvelope* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ResponseEnvelope* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ResponseEnvelope* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ResponseEnvelope>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ResponseEnvelope& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const ResponseEnvelope& from) {
+    ResponseEnvelope::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ResponseEnvelope* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "warehouse.ResponseEnvelope";
+  }
+  protected:
+  explicit ResponseEnvelope(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPayloadFieldNumber = 2,
+    kTypeFieldNumber = 1,
+  };
+  // bytes payload = 2;
+  void clear_payload();
+  const std::string& payload() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_payload(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_payload();
+  PROTOBUF_NODISCARD std::string* release_payload();
+  void set_allocated_payload(std::string* payload);
+  private:
+  const std::string& _internal_payload() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_payload(const std::string& value);
+  std::string* _internal_mutable_payload();
+  public:
+
+  // .warehouse.MessageType type = 1;
+  void clear_type();
+  ::warehouse::MessageType type() const;
+  void set_type(::warehouse::MessageType value);
+  private:
+  ::warehouse::MessageType _internal_type() const;
+  void _internal_set_type(::warehouse::MessageType value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:warehouse.ResponseEnvelope)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr payload_;
+    int type_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fwarehouse_2eproto;
+};
 // ===================================================================
 
 
@@ -1504,9 +3103,953 @@ inline void HandshakeResponse::set_allocated_message(std::string* message) {
   // @@protoc_insertion_point(field_set_allocated:warehouse.HandshakeResponse.message)
 }
 
+// -------------------------------------------------------------------
+
+// InventoryItemProto
+
+// int32 id = 1;
+inline void InventoryItemProto::clear_id() {
+  _impl_.id_ = 0;
+}
+inline int32_t InventoryItemProto::_internal_id() const {
+  return _impl_.id_;
+}
+inline int32_t InventoryItemProto::id() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryItemProto.id)
+  return _internal_id();
+}
+inline void InventoryItemProto::_internal_set_id(int32_t value) {
+  
+  _impl_.id_ = value;
+}
+inline void InventoryItemProto::set_id(int32_t value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:warehouse.InventoryItemProto.id)
+}
+
+// string sku = 2;
+inline void InventoryItemProto::clear_sku() {
+  _impl_.sku_.ClearToEmpty();
+}
+inline const std::string& InventoryItemProto::sku() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryItemProto.sku)
+  return _internal_sku();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryItemProto::set_sku(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.sku_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryItemProto.sku)
+}
+inline std::string* InventoryItemProto::mutable_sku() {
+  std::string* _s = _internal_mutable_sku();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryItemProto.sku)
+  return _s;
+}
+inline const std::string& InventoryItemProto::_internal_sku() const {
+  return _impl_.sku_.Get();
+}
+inline void InventoryItemProto::_internal_set_sku(const std::string& value) {
+  
+  _impl_.sku_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryItemProto::_internal_mutable_sku() {
+  
+  return _impl_.sku_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryItemProto::release_sku() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryItemProto.sku)
+  return _impl_.sku_.Release();
+}
+inline void InventoryItemProto::set_allocated_sku(std::string* sku) {
+  if (sku != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.sku_.SetAllocated(sku, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.sku_.IsDefault()) {
+    _impl_.sku_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryItemProto.sku)
+}
+
+// string name = 3;
+inline void InventoryItemProto::clear_name() {
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& InventoryItemProto::name() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryItemProto.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryItemProto::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryItemProto.name)
+}
+inline std::string* InventoryItemProto::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryItemProto.name)
+  return _s;
+}
+inline const std::string& InventoryItemProto::_internal_name() const {
+  return _impl_.name_.Get();
+}
+inline void InventoryItemProto::_internal_set_name(const std::string& value) {
+  
+  _impl_.name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryItemProto::_internal_mutable_name() {
+  
+  return _impl_.name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryItemProto::release_name() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryItemProto.name)
+  return _impl_.name_.Release();
+}
+inline void InventoryItemProto::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.name_.IsDefault()) {
+    _impl_.name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryItemProto.name)
+}
+
+// int32 quantity = 4;
+inline void InventoryItemProto::clear_quantity() {
+  _impl_.quantity_ = 0;
+}
+inline int32_t InventoryItemProto::_internal_quantity() const {
+  return _impl_.quantity_;
+}
+inline int32_t InventoryItemProto::quantity() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryItemProto.quantity)
+  return _internal_quantity();
+}
+inline void InventoryItemProto::_internal_set_quantity(int32_t value) {
+  
+  _impl_.quantity_ = value;
+}
+inline void InventoryItemProto::set_quantity(int32_t value) {
+  _internal_set_quantity(value);
+  // @@protoc_insertion_point(field_set:warehouse.InventoryItemProto.quantity)
+}
+
+// string location = 5;
+inline void InventoryItemProto::clear_location() {
+  _impl_.location_.ClearToEmpty();
+}
+inline const std::string& InventoryItemProto::location() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryItemProto.location)
+  return _internal_location();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryItemProto::set_location(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.location_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryItemProto.location)
+}
+inline std::string* InventoryItemProto::mutable_location() {
+  std::string* _s = _internal_mutable_location();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryItemProto.location)
+  return _s;
+}
+inline const std::string& InventoryItemProto::_internal_location() const {
+  return _impl_.location_.Get();
+}
+inline void InventoryItemProto::_internal_set_location(const std::string& value) {
+  
+  _impl_.location_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryItemProto::_internal_mutable_location() {
+  
+  return _impl_.location_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryItemProto::release_location() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryItemProto.location)
+  return _impl_.location_.Release();
+}
+inline void InventoryItemProto::set_allocated_location(std::string* location) {
+  if (location != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.location_.SetAllocated(location, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.location_.IsDefault()) {
+    _impl_.location_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryItemProto.location)
+}
+
+// -------------------------------------------------------------------
+
+// InventoryAddRequest
+
+// string sku = 1;
+inline void InventoryAddRequest::clear_sku() {
+  _impl_.sku_.ClearToEmpty();
+}
+inline const std::string& InventoryAddRequest::sku() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryAddRequest.sku)
+  return _internal_sku();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryAddRequest::set_sku(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.sku_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryAddRequest.sku)
+}
+inline std::string* InventoryAddRequest::mutable_sku() {
+  std::string* _s = _internal_mutable_sku();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryAddRequest.sku)
+  return _s;
+}
+inline const std::string& InventoryAddRequest::_internal_sku() const {
+  return _impl_.sku_.Get();
+}
+inline void InventoryAddRequest::_internal_set_sku(const std::string& value) {
+  
+  _impl_.sku_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryAddRequest::_internal_mutable_sku() {
+  
+  return _impl_.sku_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryAddRequest::release_sku() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryAddRequest.sku)
+  return _impl_.sku_.Release();
+}
+inline void InventoryAddRequest::set_allocated_sku(std::string* sku) {
+  if (sku != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.sku_.SetAllocated(sku, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.sku_.IsDefault()) {
+    _impl_.sku_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryAddRequest.sku)
+}
+
+// string name = 2;
+inline void InventoryAddRequest::clear_name() {
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& InventoryAddRequest::name() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryAddRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryAddRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryAddRequest.name)
+}
+inline std::string* InventoryAddRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryAddRequest.name)
+  return _s;
+}
+inline const std::string& InventoryAddRequest::_internal_name() const {
+  return _impl_.name_.Get();
+}
+inline void InventoryAddRequest::_internal_set_name(const std::string& value) {
+  
+  _impl_.name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryAddRequest::_internal_mutable_name() {
+  
+  return _impl_.name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryAddRequest::release_name() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryAddRequest.name)
+  return _impl_.name_.Release();
+}
+inline void InventoryAddRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.name_.IsDefault()) {
+    _impl_.name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryAddRequest.name)
+}
+
+// int32 quantity = 3;
+inline void InventoryAddRequest::clear_quantity() {
+  _impl_.quantity_ = 0;
+}
+inline int32_t InventoryAddRequest::_internal_quantity() const {
+  return _impl_.quantity_;
+}
+inline int32_t InventoryAddRequest::quantity() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryAddRequest.quantity)
+  return _internal_quantity();
+}
+inline void InventoryAddRequest::_internal_set_quantity(int32_t value) {
+  
+  _impl_.quantity_ = value;
+}
+inline void InventoryAddRequest::set_quantity(int32_t value) {
+  _internal_set_quantity(value);
+  // @@protoc_insertion_point(field_set:warehouse.InventoryAddRequest.quantity)
+}
+
+// string location = 4;
+inline void InventoryAddRequest::clear_location() {
+  _impl_.location_.ClearToEmpty();
+}
+inline const std::string& InventoryAddRequest::location() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryAddRequest.location)
+  return _internal_location();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryAddRequest::set_location(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.location_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryAddRequest.location)
+}
+inline std::string* InventoryAddRequest::mutable_location() {
+  std::string* _s = _internal_mutable_location();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryAddRequest.location)
+  return _s;
+}
+inline const std::string& InventoryAddRequest::_internal_location() const {
+  return _impl_.location_.Get();
+}
+inline void InventoryAddRequest::_internal_set_location(const std::string& value) {
+  
+  _impl_.location_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryAddRequest::_internal_mutable_location() {
+  
+  return _impl_.location_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryAddRequest::release_location() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryAddRequest.location)
+  return _impl_.location_.Release();
+}
+inline void InventoryAddRequest::set_allocated_location(std::string* location) {
+  if (location != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.location_.SetAllocated(location, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.location_.IsDefault()) {
+    _impl_.location_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryAddRequest.location)
+}
+
+// -------------------------------------------------------------------
+
+// InventoryAddResponse
+
+// bool success = 1;
+inline void InventoryAddResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool InventoryAddResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool InventoryAddResponse::success() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryAddResponse.success)
+  return _internal_success();
+}
+inline void InventoryAddResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void InventoryAddResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:warehouse.InventoryAddResponse.success)
+}
+
+// string message = 2;
+inline void InventoryAddResponse::clear_message() {
+  _impl_.message_.ClearToEmpty();
+}
+inline const std::string& InventoryAddResponse::message() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryAddResponse.message)
+  return _internal_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryAddResponse::set_message(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryAddResponse.message)
+}
+inline std::string* InventoryAddResponse::mutable_message() {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryAddResponse.message)
+  return _s;
+}
+inline const std::string& InventoryAddResponse::_internal_message() const {
+  return _impl_.message_.Get();
+}
+inline void InventoryAddResponse::_internal_set_message(const std::string& value) {
+  
+  _impl_.message_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryAddResponse::_internal_mutable_message() {
+  
+  return _impl_.message_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryAddResponse::release_message() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryAddResponse.message)
+  return _impl_.message_.Release();
+}
+inline void InventoryAddResponse::set_allocated_message(std::string* message) {
+  if (message != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.message_.IsDefault()) {
+    _impl_.message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryAddResponse.message)
+}
+
+// -------------------------------------------------------------------
+
+// InventoryQueryRequest
+
+// string sku = 1;
+inline void InventoryQueryRequest::clear_sku() {
+  _impl_.sku_.ClearToEmpty();
+}
+inline const std::string& InventoryQueryRequest::sku() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryQueryRequest.sku)
+  return _internal_sku();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryQueryRequest::set_sku(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.sku_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryQueryRequest.sku)
+}
+inline std::string* InventoryQueryRequest::mutable_sku() {
+  std::string* _s = _internal_mutable_sku();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryQueryRequest.sku)
+  return _s;
+}
+inline const std::string& InventoryQueryRequest::_internal_sku() const {
+  return _impl_.sku_.Get();
+}
+inline void InventoryQueryRequest::_internal_set_sku(const std::string& value) {
+  
+  _impl_.sku_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryQueryRequest::_internal_mutable_sku() {
+  
+  return _impl_.sku_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryQueryRequest::release_sku() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryQueryRequest.sku)
+  return _impl_.sku_.Release();
+}
+inline void InventoryQueryRequest::set_allocated_sku(std::string* sku) {
+  if (sku != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.sku_.SetAllocated(sku, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.sku_.IsDefault()) {
+    _impl_.sku_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryQueryRequest.sku)
+}
+
+// -------------------------------------------------------------------
+
+// InventoryQueryResponse
+
+// bool success = 1;
+inline void InventoryQueryResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool InventoryQueryResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool InventoryQueryResponse::success() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryQueryResponse.success)
+  return _internal_success();
+}
+inline void InventoryQueryResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void InventoryQueryResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:warehouse.InventoryQueryResponse.success)
+}
+
+// .warehouse.InventoryItemProto item = 2;
+inline bool InventoryQueryResponse::_internal_has_item() const {
+  return this != internal_default_instance() && _impl_.item_ != nullptr;
+}
+inline bool InventoryQueryResponse::has_item() const {
+  return _internal_has_item();
+}
+inline void InventoryQueryResponse::clear_item() {
+  if (GetArenaForAllocation() == nullptr && _impl_.item_ != nullptr) {
+    delete _impl_.item_;
+  }
+  _impl_.item_ = nullptr;
+}
+inline const ::warehouse::InventoryItemProto& InventoryQueryResponse::_internal_item() const {
+  const ::warehouse::InventoryItemProto* p = _impl_.item_;
+  return p != nullptr ? *p : reinterpret_cast<const ::warehouse::InventoryItemProto&>(
+      ::warehouse::_InventoryItemProto_default_instance_);
+}
+inline const ::warehouse::InventoryItemProto& InventoryQueryResponse::item() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryQueryResponse.item)
+  return _internal_item();
+}
+inline void InventoryQueryResponse::unsafe_arena_set_allocated_item(
+    ::warehouse::InventoryItemProto* item) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.item_);
+  }
+  _impl_.item_ = item;
+  if (item) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:warehouse.InventoryQueryResponse.item)
+}
+inline ::warehouse::InventoryItemProto* InventoryQueryResponse::release_item() {
+  
+  ::warehouse::InventoryItemProto* temp = _impl_.item_;
+  _impl_.item_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::warehouse::InventoryItemProto* InventoryQueryResponse::unsafe_arena_release_item() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryQueryResponse.item)
+  
+  ::warehouse::InventoryItemProto* temp = _impl_.item_;
+  _impl_.item_ = nullptr;
+  return temp;
+}
+inline ::warehouse::InventoryItemProto* InventoryQueryResponse::_internal_mutable_item() {
+  
+  if (_impl_.item_ == nullptr) {
+    auto* p = CreateMaybeMessage<::warehouse::InventoryItemProto>(GetArenaForAllocation());
+    _impl_.item_ = p;
+  }
+  return _impl_.item_;
+}
+inline ::warehouse::InventoryItemProto* InventoryQueryResponse::mutable_item() {
+  ::warehouse::InventoryItemProto* _msg = _internal_mutable_item();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryQueryResponse.item)
+  return _msg;
+}
+inline void InventoryQueryResponse::set_allocated_item(::warehouse::InventoryItemProto* item) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.item_;
+  }
+  if (item) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(item);
+    if (message_arena != submessage_arena) {
+      item = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, item, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.item_ = item;
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryQueryResponse.item)
+}
+
+// string message = 3;
+inline void InventoryQueryResponse::clear_message() {
+  _impl_.message_.ClearToEmpty();
+}
+inline const std::string& InventoryQueryResponse::message() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryQueryResponse.message)
+  return _internal_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryQueryResponse::set_message(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryQueryResponse.message)
+}
+inline std::string* InventoryQueryResponse::mutable_message() {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryQueryResponse.message)
+  return _s;
+}
+inline const std::string& InventoryQueryResponse::_internal_message() const {
+  return _impl_.message_.Get();
+}
+inline void InventoryQueryResponse::_internal_set_message(const std::string& value) {
+  
+  _impl_.message_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryQueryResponse::_internal_mutable_message() {
+  
+  return _impl_.message_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryQueryResponse::release_message() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryQueryResponse.message)
+  return _impl_.message_.Release();
+}
+inline void InventoryQueryResponse::set_allocated_message(std::string* message) {
+  if (message != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.message_.IsDefault()) {
+    _impl_.message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryQueryResponse.message)
+}
+
+// -------------------------------------------------------------------
+
+// InventoryListRequest
+
+// -------------------------------------------------------------------
+
+// InventoryListResponse
+
+// repeated .warehouse.InventoryItemProto items = 1;
+inline int InventoryListResponse::_internal_items_size() const {
+  return _impl_.items_.size();
+}
+inline int InventoryListResponse::items_size() const {
+  return _internal_items_size();
+}
+inline void InventoryListResponse::clear_items() {
+  _impl_.items_.Clear();
+}
+inline ::warehouse::InventoryItemProto* InventoryListResponse::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryListResponse.items)
+  return _impl_.items_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::warehouse::InventoryItemProto >*
+InventoryListResponse::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:warehouse.InventoryListResponse.items)
+  return &_impl_.items_;
+}
+inline const ::warehouse::InventoryItemProto& InventoryListResponse::_internal_items(int index) const {
+  return _impl_.items_.Get(index);
+}
+inline const ::warehouse::InventoryItemProto& InventoryListResponse::items(int index) const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryListResponse.items)
+  return _internal_items(index);
+}
+inline ::warehouse::InventoryItemProto* InventoryListResponse::_internal_add_items() {
+  return _impl_.items_.Add();
+}
+inline ::warehouse::InventoryItemProto* InventoryListResponse::add_items() {
+  ::warehouse::InventoryItemProto* _add = _internal_add_items();
+  // @@protoc_insertion_point(field_add:warehouse.InventoryListResponse.items)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::warehouse::InventoryItemProto >&
+InventoryListResponse::items() const {
+  // @@protoc_insertion_point(field_list:warehouse.InventoryListResponse.items)
+  return _impl_.items_;
+}
+
+// bool success = 2;
+inline void InventoryListResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool InventoryListResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool InventoryListResponse::success() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryListResponse.success)
+  return _internal_success();
+}
+inline void InventoryListResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void InventoryListResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:warehouse.InventoryListResponse.success)
+}
+
+// string message = 3;
+inline void InventoryListResponse::clear_message() {
+  _impl_.message_.ClearToEmpty();
+}
+inline const std::string& InventoryListResponse::message() const {
+  // @@protoc_insertion_point(field_get:warehouse.InventoryListResponse.message)
+  return _internal_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InventoryListResponse::set_message(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.InventoryListResponse.message)
+}
+inline std::string* InventoryListResponse::mutable_message() {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:warehouse.InventoryListResponse.message)
+  return _s;
+}
+inline const std::string& InventoryListResponse::_internal_message() const {
+  return _impl_.message_.Get();
+}
+inline void InventoryListResponse::_internal_set_message(const std::string& value) {
+  
+  _impl_.message_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InventoryListResponse::_internal_mutable_message() {
+  
+  return _impl_.message_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InventoryListResponse::release_message() {
+  // @@protoc_insertion_point(field_release:warehouse.InventoryListResponse.message)
+  return _impl_.message_.Release();
+}
+inline void InventoryListResponse::set_allocated_message(std::string* message) {
+  if (message != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.message_.IsDefault()) {
+    _impl_.message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.InventoryListResponse.message)
+}
+
+// -------------------------------------------------------------------
+
+// RequestEnvelope
+
+// .warehouse.MessageType type = 1;
+inline void RequestEnvelope::clear_type() {
+  _impl_.type_ = 0;
+}
+inline ::warehouse::MessageType RequestEnvelope::_internal_type() const {
+  return static_cast< ::warehouse::MessageType >(_impl_.type_);
+}
+inline ::warehouse::MessageType RequestEnvelope::type() const {
+  // @@protoc_insertion_point(field_get:warehouse.RequestEnvelope.type)
+  return _internal_type();
+}
+inline void RequestEnvelope::_internal_set_type(::warehouse::MessageType value) {
+  
+  _impl_.type_ = value;
+}
+inline void RequestEnvelope::set_type(::warehouse::MessageType value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:warehouse.RequestEnvelope.type)
+}
+
+// bytes payload = 2;
+inline void RequestEnvelope::clear_payload() {
+  _impl_.payload_.ClearToEmpty();
+}
+inline const std::string& RequestEnvelope::payload() const {
+  // @@protoc_insertion_point(field_get:warehouse.RequestEnvelope.payload)
+  return _internal_payload();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RequestEnvelope::set_payload(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.payload_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.RequestEnvelope.payload)
+}
+inline std::string* RequestEnvelope::mutable_payload() {
+  std::string* _s = _internal_mutable_payload();
+  // @@protoc_insertion_point(field_mutable:warehouse.RequestEnvelope.payload)
+  return _s;
+}
+inline const std::string& RequestEnvelope::_internal_payload() const {
+  return _impl_.payload_.Get();
+}
+inline void RequestEnvelope::_internal_set_payload(const std::string& value) {
+  
+  _impl_.payload_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RequestEnvelope::_internal_mutable_payload() {
+  
+  return _impl_.payload_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RequestEnvelope::release_payload() {
+  // @@protoc_insertion_point(field_release:warehouse.RequestEnvelope.payload)
+  return _impl_.payload_.Release();
+}
+inline void RequestEnvelope::set_allocated_payload(std::string* payload) {
+  if (payload != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.payload_.SetAllocated(payload, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.payload_.IsDefault()) {
+    _impl_.payload_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.RequestEnvelope.payload)
+}
+
+// -------------------------------------------------------------------
+
+// ResponseEnvelope
+
+// .warehouse.MessageType type = 1;
+inline void ResponseEnvelope::clear_type() {
+  _impl_.type_ = 0;
+}
+inline ::warehouse::MessageType ResponseEnvelope::_internal_type() const {
+  return static_cast< ::warehouse::MessageType >(_impl_.type_);
+}
+inline ::warehouse::MessageType ResponseEnvelope::type() const {
+  // @@protoc_insertion_point(field_get:warehouse.ResponseEnvelope.type)
+  return _internal_type();
+}
+inline void ResponseEnvelope::_internal_set_type(::warehouse::MessageType value) {
+  
+  _impl_.type_ = value;
+}
+inline void ResponseEnvelope::set_type(::warehouse::MessageType value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:warehouse.ResponseEnvelope.type)
+}
+
+// bytes payload = 2;
+inline void ResponseEnvelope::clear_payload() {
+  _impl_.payload_.ClearToEmpty();
+}
+inline const std::string& ResponseEnvelope::payload() const {
+  // @@protoc_insertion_point(field_get:warehouse.ResponseEnvelope.payload)
+  return _internal_payload();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ResponseEnvelope::set_payload(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.payload_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:warehouse.ResponseEnvelope.payload)
+}
+inline std::string* ResponseEnvelope::mutable_payload() {
+  std::string* _s = _internal_mutable_payload();
+  // @@protoc_insertion_point(field_mutable:warehouse.ResponseEnvelope.payload)
+  return _s;
+}
+inline const std::string& ResponseEnvelope::_internal_payload() const {
+  return _impl_.payload_.Get();
+}
+inline void ResponseEnvelope::_internal_set_payload(const std::string& value) {
+  
+  _impl_.payload_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ResponseEnvelope::_internal_mutable_payload() {
+  
+  return _impl_.payload_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ResponseEnvelope::release_payload() {
+  // @@protoc_insertion_point(field_release:warehouse.ResponseEnvelope.payload)
+  return _impl_.payload_.Release();
+}
+inline void ResponseEnvelope::set_allocated_payload(std::string* payload) {
+  if (payload != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.payload_.SetAllocated(payload, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.payload_.IsDefault()) {
+    _impl_.payload_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:warehouse.ResponseEnvelope.payload)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -1519,6 +4062,16 @@ inline void HandshakeResponse::set_allocated_message(std::string* message) {
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace warehouse
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <> struct is_proto_enum< ::warehouse::MessageType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::warehouse::MessageType>() {
+  return ::warehouse::MessageType_descriptor();
+}
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

@@ -80,9 +80,24 @@ int main() {
         return -1;
     }
 
+    // 封装 RequestEnvelope
+    warehouse::RequestEnvelope envelope;
+
+    envelope.set_type(warehouse::LOGIN_REQUEST);
+    envelope.set_payload(loginData);
+
+    // 再序列化
+    std::string requestData;
+
+    if (!envelope.SerializeToString(&requestData)) {
+        std::cout << "Serialize envelope failed\n";
+        close(sock);
+        return -1;
+    }
+
     std::string secureData;
 
-    SecureChannel::encryptMessage(loginData, aesKey.key, secureData);
+    SecureChannel::encryptMessage(requestData, aesKey.key, secureData);
 
     auto loginPacket = MessageFramer::pack(secureData);
     if (!MessageFramer::sendAll(sock, loginPacket.data(), loginPacket.size())) {
@@ -98,12 +113,30 @@ int main() {
         return -1;
     }
 
-    // 解密
+    // AES解密
     std::string plaintext;
-    SecureChannel::decryptMessage(loginRespData, aesKey.key, plaintext);
+    if (!SecureChannel::decryptMessage(loginRespData, aesKey.key, plaintext)) {
+        std::cout << "decrypt failed\n";
+        close(sock);
+        return -1;
+    }
+
+    warehouse::ResponseEnvelope respEnvelope;
+    if (!respEnvelope.ParseFromString(plaintext)) {
+        std::cout << "Parse ResponseEnvelope failed\n";
+        close(sock);
+        return -1;
+    }
+
+    // 检查类型
+    if (respEnvelope.type() != warehouse::LOGIN_REQUEST) {
+        std::cout << "Unexpected response type\n";
+        close(sock);
+        return -1;
+    }
 
     warehouse::LoginResponse loginResp;
-    if (!loginResp.ParseFromString(plaintext)) {
+    if (!loginResp.ParseFromString(respEnvelope.payload())) {
         std::cout << "Parse login response failed\n";
         close(sock);
         return -1;

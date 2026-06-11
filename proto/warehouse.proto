@@ -30,3 +30,63 @@ message HandshakeResponse {
     bool success = 1;
     string message = 2;
 }
+
+message InventoryItemProto {
+    int32 id = 1;
+    string sku = 2;
+    string name = 3;
+    int32 quantity = 4;
+    string location = 5;
+}
+
+// 新增库存
+message InventoryAddRequest {
+    string sku = 1;
+    string name = 2;
+    int32 quantity = 3;
+    string location = 4;
+}
+
+message InventoryAddResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+// 库存查询
+message InventoryQueryRequest {
+    string sku = 1;
+}
+
+message InventoryQueryResponse {
+    bool success = 1;
+    InventoryItemProto item = 2;
+    string message = 3;
+}
+
+// 查询全部库存
+message InventoryListRequest {
+
+}
+
+message InventoryListResponse {
+    repeated InventoryItemProto items = 1;
+    bool success = 2;
+    string message = 3;
+}
+
+enum MessageType {
+    LOGIN_REQUEST = 0;
+    INVENTORY_ADD_REQUEST = 1;
+    INVENTORY_QUERY_REQUEST = 2;
+    INVENTORY_LIST_REQUEST = 3;
+}
+
+message RequestEnvelope {
+    MessageType type = 1;
+    bytes payload = 2;
+}
+
+message ResponseEnvelope {
+    MessageType type = 1;
+    bytes payload = 2;
+}
